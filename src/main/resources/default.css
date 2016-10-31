@@ -1,0 +1,91 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+a {
+    cursor: pointer;
+}
+
+#index a {
+    font-size: large;
+    padding-bottom: 5px;
+    display: block;
+}
+
+#content {
+    height: 100%;
+}
+
+#left {
+    float: left;
+    width: 20%;
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 0.5em;
+    border-right: 1px solid black;
+}
+
+#right {
+    float: left;
+    width: 80%;
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 0.5em;
+}
+
+table {
+    font-family: verdana, arial, sans-serif;
+    font-size: 11px;
+    color: #333333;
+    border: 1px #666666;
+    border-collapse: collapse;
+}
+
+table th {
+    padding: 8px;
+    border: 1px solid #666666;
+}
+
+.table_data_header,
+table th {
+    background-color: #dedede;
+}
+
+table td {
+    padding: 8px;
+    border: 1px solid #666666;
+    background-color: #ffffff;
+}
+
+.table_header {
+
+}
+
+.table_data {
+
+}
+
+.table_row {
+
+}
+
+.null_value {
+    background-color: #f4f4f4;
+}
+
+.node_type {
+
+}
+
+.description {
+
+}
+
+.derived_from_hierarchy_tree ul {
+    list-style-type: none;
+}
+

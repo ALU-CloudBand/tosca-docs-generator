@@ -16,6 +16,7 @@ import org.tosca.docs.model.impl.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class HtmlGeneratorTest {
 
@@ -60,6 +61,33 @@ public class HtmlGeneratorTest {
                 createEmptyNodeType()
         ));
 
+        compareToscaSpecWithExpected(spec, "/expected_tosca_spec.html");
+    }
+
+    /**
+     * Tests custom style and locale.
+     * @throws IOException In case exception comparing the actual and expected
+     */
+    @Test
+    public void testCustomization() throws IOException {
+        ToscaSpec spec = new ToscaSpecImpl();
+        spec.setNodeTypes(ImmutableSet.of(
+                createToscaNodesRoot()
+        ));
+
+        Locale origDefaultLocale = Locale.getDefault();
+        try {
+            System.setProperty(HtmlGenerator.STYLE_SYSTEM_PROPERTY, "/test.css");
+            Locale.setDefault(new Locale("es"));
+
+            compareToscaSpecWithExpected(spec, "/expected_customized_tosca_spec.html");
+        } finally {
+            System.clearProperty(HtmlGenerator.STYLE_SYSTEM_PROPERTY);
+            Locale.setDefault(origDefaultLocale);
+        }
+    }
+
+    private void compareToscaSpecWithExpected(ToscaSpec spec, String expectedFilePath) throws IOException {
         spec = transform(spec, ToscaSpec.class);
 
         StringWriter writer = new StringWriter();
@@ -69,7 +97,7 @@ public class HtmlGeneratorTest {
         String actualHtml = writer.toString();
         writeStringToFile(actualHtml, "/tmp/generated.html");
 
-        try (InputStream expectedStream = HtmlGeneratorTest.class.getResourceAsStream("/expected_tosca_spec.html")) {
+        try (InputStream expectedStream = HtmlGeneratorTest.class.getResourceAsStream(expectedFilePath)) {
             Assert.assertEquals(IOUtils.toString(expectedStream, Charset.defaultCharset()), actualHtml);
         }
     }
@@ -85,13 +113,13 @@ public class HtmlGeneratorTest {
         }
     }
 
-    private NodeType createEmptyNodeType() throws IOException {
+    private NodeType createEmptyNodeType() {
         return new NodeTypeImpl()
                 .setTypeUri("test.nodes.Empty")
                 .setDerivedFrom("tosca.nodes.Root");
     }
 
-    private NodeType createToscaNodesRoot() throws IOException {
+    private NodeType createToscaNodesRoot() {
         return new NodeTypeImpl()
                 .setTypeUri("tosca.nodes.Root")
                 .setDescription("The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).")
@@ -119,7 +147,7 @@ public class HtmlGeneratorTest {
                 );
     }
 
-    private NodeType createToscaNodesNfvVnf() throws IOException {
+    private NodeType createToscaNodesNfvVnf() {
 
         return new NodeTypeImpl()
                 .setTypeUri("tosca.nodes.nfv.VNF")
@@ -172,7 +200,7 @@ public class HtmlGeneratorTest {
                 ));
     }
 
-    private NodeType createCustomVnf() throws IOException {
+    private NodeType createCustomVnf() {
         return new NodeTypeImpl()
                 .setTypeUri("custom.nodes.VNF")
                 .setShorthandName("CustomVnf")

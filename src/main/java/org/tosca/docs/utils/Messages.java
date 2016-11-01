@@ -5,19 +5,15 @@ import java.util.ResourceBundle;
 
 public class Messages {
 
-    private static final ResourceBundle PROPERTIES;
+    private final ResourceBundle properties;
 
-    static {
-        try {
-            PROPERTIES = ResourceBundle.getBundle("messages");
-        } catch (Exception e) {
-            throw new ExceptionInInitializerError(e);
-        }
+    public Messages() {
+        properties = ResourceBundle.getBundle("messages");
     }
 
-    public static String getMessage(String key, Object... args) {
+    public String getMessage(String key, Object... args) {
         try {
-            String message = PROPERTIES.getString(key);
+            String message = properties.getString(key);
             return String.format(message, args);
         } catch (MissingResourceException e) {
             return null;

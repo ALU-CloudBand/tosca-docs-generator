@@ -13,15 +13,22 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.*;
 
-import static org.tosca.docs.generators.GeneratorUtils.localize;
-import static org.tosca.docs.utils.Messages.getMessage;
-
 public class HtmlGenerator {
+    public static final String STYLE_SYSTEM_PROPERTY = "org.tosca.docs.generators.html.style";
+
     protected final ToscaSpec spec;
+    protected Messages messages;
     protected Html html;
 
+    /**
+     *
+     * Locale can be set using the <source>-Duser.language=es</source> JVM property
+     *
+     * @param spec The specification to generate the docs upon
+     */
     public HtmlGenerator(ToscaSpec spec) {
         this.spec = spec;
+        this.messages = new Messages();
     }
 
     public void write(Writer writer) throws IOException {
@@ -29,7 +36,7 @@ public class HtmlGenerator {
         html = new Html5(writer);
 
         html.raw("<!DOCTYPE html>");
-        html.html().lang(getMessage("spec.lang"));
+        html.html().lang(messages.getMessage("spec.lang"));
 
         addHead();
 
@@ -77,18 +84,18 @@ public class HtmlGenerator {
 
         String title = spec.getTitle();
         if (title == null) {
-            title = localize("spec.title", "TOSCA documentation");
+            title = localize("spec.title");
         }
 
         html
                 .head()
                 .title().text(title).end()
-                .meta().charset("UTF-8")
+                .meta().charset(messages.getMessage("spec.charset"))
                 .style()
                 .type("text/css");
 
-        // TODO make configurable
-        try (InputStream resourceAsStream = Messages.class.getResourceAsStream("/default.css")) {
+        String styleFile = System.getProperty(STYLE_SYSTEM_PROPERTY, "/default.css");
+        try (InputStream resourceAsStream = Messages.class.getResourceAsStream(styleFile)) {
             String style = IOUtils.toString(resourceAsStream, Charset.defaultCharset());
             html.text(style);
         }
@@ -102,7 +109,7 @@ public class HtmlGenerator {
 
         html.h2()
                 .id(indexId)
-                .text(getMessage("headers.node_type", nodeType.getId()))
+                .text(messages.getMessage("headers.node_type", nodeType.getId()))
                 .end();
 
         addHierarchyTree(nodeType, spec.getNodeTypesTree());
@@ -455,5 +462,21 @@ public class HtmlGenerator {
         public int compareTo(Feature<T> o) {
             return object.compareTo(o.object);
         }
+    }
+
+    public String localize(String messageKey) {
+        return localize(messageKey, null);
+    }
+
+    public String localize(String messageKey, String defaultMessage) {
+        return getMessage(messageKey, defaultMessage);
+    }
+
+    private String getMessage(String messageKey, String defaultMessage) {
+        String message = messages.getMessage(messageKey);
+        if (message == null) {
+            message = defaultMessage;
+        }
+        return message;
     }
 }

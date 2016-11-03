@@ -60,12 +60,43 @@ public class HtmlGeneratorTest {
                 createToscaNodesNfvVnf(),
                 createEmptyNodeType()
         ));
+        spec.setRelationshipTypes(ImmutableSet.<RelationshipType>of(
+                createToscaRelationshipRoot(),
+                createEmptyRelationshipType()
+        ));
 
         compareToscaSpecWithExpected(spec, "/expected_tosca_spec.html");
     }
 
+    private RelationshipType createToscaRelationshipRoot() {
+        return new RelationshipTypeImpl()
+                .setTypeUri("tosca.relationships.Root")
+                .setAttributes(ImmutableList.of(
+                        new AttributeImpl()
+                                .setName("tosca_id")
+                                .setRequired(true)
+                                .setType(Type.STRING.toString()),
+                        new AttributeImpl()
+                                .setName("tosca_name")
+                                .setRequired(true)
+                                .setType(Type.STRING.toString())
+                ));
+    }
+
+    private RelationshipType createEmptyRelationshipType() {
+        return new RelationshipTypeImpl()
+                .setTypeUri("test.relationships.Empty")
+                .setDerivedFrom("tosca.relationships.Root");
+    }
+
+    @Test
+    public void testEmptyToscaSpec() throws IOException {
+        compareToscaSpecWithExpected(new ToscaSpecImpl(), "/expected_empty_tosca_spec.html");
+    }
+
     /**
      * Tests custom style and locale.
+     *
      * @throws IOException In case exception comparing the actual and expected
      */
     @Test
@@ -95,7 +126,8 @@ public class HtmlGeneratorTest {
         htmlGenerator.write(writer);
 
         String actualHtml = writer.toString();
-        writeStringToFile(actualHtml, "/tmp/generated.html");
+        File actualHtmlFile = new File("/tmp/", new File(expectedFilePath).getName().replaceFirst("expected", "actual"));
+        writeStringToFile(actualHtml, actualHtmlFile.getAbsolutePath());
 
         try (InputStream expectedStream = HtmlGeneratorTest.class.getResourceAsStream(expectedFilePath)) {
             Assert.assertEquals(IOUtils.toString(expectedStream, Charset.defaultCharset()), actualHtml);

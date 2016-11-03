@@ -7,22 +7,6 @@ import java.util.List;
 
 @JsonDeserialize(as = NodeTypeImpl.class)
 public interface NodeType<T extends AbstractModel> extends AbstractModelEntity<T>, AttributesContainer, PropertiesContainer, CapabilitiesContainer {
-    String getShorthandName();
-
-    NodeType setShorthandName(String shorthandName);
-
-    String getTypeQualifiedName();
-
-    NodeType setTypeQualifiedName(String typeQualifiedName);
-
-    String getTypeUri();
-
-    NodeType setTypeUri(String typeUri);
-
-    @Override
-    String getDescription();
-
-    NodeType setDescription(String description);
 
     @Override
     List<? extends Property> getProperties();

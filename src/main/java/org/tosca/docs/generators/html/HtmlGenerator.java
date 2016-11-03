@@ -5,7 +5,6 @@ import com.sun.istack.internal.Nullable;
 import org.apache.commons.io.IOUtils;
 import org.tosca.docs.model.*;
 import org.tosca.docs.utils.Messages;
-import org.tosca.docs.utils.Tree;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +28,12 @@ public class HtmlGenerator {
     public HtmlGenerator(ToscaSpec spec) {
         this.spec = spec;
         this.messages = new Messages();
+    }
+
+    public HtmlGenerator(HtmlGenerator htmlGenerator) {
+        this.spec = htmlGenerator.spec;
+        this.html = htmlGenerator.html;
+        this.messages = htmlGenerator.messages;
     }
 
     public void write(Writer writer) throws IOException {
@@ -55,18 +60,37 @@ public class HtmlGenerator {
         html.h1().id("node_types").style("text-align: center").text(localize("headers.node_types")).end();
         html.hr();
 
+        HtmlNodeTypeGenerator nodeTypeGenerator = createNodeTypeGenerator();
         for (NodeType nodeType : spec.getNodeTypes()) {
-            add(nodeType);
+            nodeTypeGenerator.add(nodeType);
+        }
+
+        html.h1().id("relationship_types").style("text-align: center").text(localize("headers.relationship_types")).end();
+        html.hr();
+
+        HtmlRelationshipTypeGenerator relationshipTypeGenerator = createRelationshipTypeGenerator();
+        for (RelationshipType relationshipType : spec.getRelationshipTypes()) {
+            relationshipTypeGenerator.add(relationshipType);
         }
 
         html.endAll();
+    }
+
+    private HtmlRelationshipTypeGenerator createRelationshipTypeGenerator() {
+        return new HtmlRelationshipTypeGenerator(this);
+    }
+
+    protected HtmlNodeTypeGenerator createNodeTypeGenerator() {
+        return new HtmlNodeTypeGenerator(this);
     }
 
     protected void addIndex() {
 
         html.div().id("index");
 
-        html.h1().text(localize("headers.node_types")).end();
+        addIndexHeadersLinks();
+
+        html.h2().id("node_types_index_header").text(localize("headers.node_types")).end();
 
         for (NodeType nodeType : spec.getNodeTypes()) {
             html
@@ -77,7 +101,34 @@ public class HtmlGenerator {
                     .end();
         }
 
+        html.hr();
+
+        html.h2().id("relationship_types_index_header").text(localize("headers.relationship_types")).end();
+
+        for (RelationshipType relationshipType : spec.getRelationshipTypes()) {
+            html
+                    .a()
+                    .href("#" + getIndexId(relationshipType))
+                    .title(relationshipType.getDescription())
+                    .text(relationshipType.getTypeUri())
+                    .end();
+        }
+
         html.end(); // h1
+    }
+
+    private void addIndexHeadersLinks() {
+        html
+                .a()
+                .href("#node_types_index_header")
+                .text(localize("headers.node_types"))
+                .end();
+
+        html
+                .a()
+                .href("#relationship_types_index_header")
+                .text(localize("headers.relationship_types"))
+                .end();
     }
 
     protected void addHead() throws IOException {
@@ -103,40 +154,7 @@ public class HtmlGenerator {
         html.end(2); // style head
     }
 
-    protected void add(NodeType nodeType) {
-
-        String indexId = getIndexId(nodeType);
-
-        html.h2()
-                .id(indexId)
-                .text(messages.getMessage("headers.node_type", nodeType.getId()))
-                .end();
-
-        addHierarchyTree(nodeType, spec.getNodeTypesTree());
-
-        String description = localize(nodeType.getId() + ".description", nodeType.getDescription());
-        if (description != null) {
-            html
-                    .div()
-                    .classAttr("node_type description")
-                    .text(description)
-                    .br()
-                    .br()
-                    .end();
-        }
-
-        addIdentifiersTable(nodeType);
-
-        addPropertiesTable(nodeType);
-
-        addAttributesTable(nodeType);
-
-        addCapabilitiesTable(nodeType);
-
-        html.hr();
-    }
-
-    private void addCapabilitiesTable(CapabilitiesContainer container) {
+    protected void addCapabilitiesTable(CapabilitiesContainer container) {
         if (container.getCapabilities().isEmpty()) {
             return;
         }
@@ -278,17 +296,17 @@ public class HtmlGenerator {
                 .end(); // table
     }
 
-    protected <T extends AbstractModelEntity> void addHierarchyTree(T modelEntity, Tree<T> entityTree) {
+    protected <T extends AbstractModelEntity> void addHierarchyTree(T modelEntity) {
 
         html.div().classAttr("derived_from_hierarchy_tree");
 
         LinkedList<T> parents = new LinkedList<>();
-        T parent = entityTree.getParent(modelEntity);
+        T parent = spec.getParent(modelEntity);
 
         if (parent != null) {
             while (parent != null) {
                 parents.add(parent);
-                parent = entityTree.getParent(parent);
+                parent = spec.getParent(parent);
             }
 
             Iterator<T> descendingIterator = parents.descendingIterator();
@@ -297,7 +315,7 @@ public class HtmlGenerator {
                 html.ul();
                 html.li();
                 html.a()
-                        .href("")
+                        .href("#" + getIndexId(modelEntity))
                         .title(parent.getDescription())
                         .text(parent.getId())
                         .end(); // a
@@ -318,16 +336,16 @@ public class HtmlGenerator {
         html.end(); // div
     }
 
-    protected void addIdentifiersTable(NodeType nodeType) {
+    protected void addIdentifiersTable(AbstractModelEntity entity) {
 
-        if (nodeType.getShorthandName() != null || nodeType.getTypeQualifiedName() != null) {
+        if (entity.getShorthandName() != null || entity.getTypeQualifiedName() != null) {
             html
                     .table()
                     .tbody();
 
-            addIdentifierRow("identifiers.shorthand_name", nodeType.getShorthandName());
-            addIdentifierRow("identifiers.type_qualified_name", nodeType.getTypeQualifiedName());
-            addIdentifierRow("identifiers.type_uri", nodeType.getTypeUri());
+            addIdentifierRow("identifiers.shorthand_name", entity.getShorthandName());
+            addIdentifierRow("identifiers.type_qualified_name", entity.getTypeQualifiedName());
+            addIdentifierRow("identifiers.type_uri", entity.getTypeUri());
 
             html.end(2);
         } // else only TypeUri is available so no need to generate the table as it is already displayed in the header

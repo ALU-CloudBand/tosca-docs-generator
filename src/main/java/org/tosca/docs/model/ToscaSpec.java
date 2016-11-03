@@ -2,7 +2,6 @@ package org.tosca.docs.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.tosca.docs.model.impl.ToscaSpecImpl;
-import org.tosca.docs.utils.Tree;
 
 import java.util.Set;
 
@@ -17,7 +16,9 @@ public interface ToscaSpec {
 
     ToscaSpec setNodeTypes(Set<NodeType> nodeTypes);
 
-    Tree<NodeType> getNodeTypesTree();
+    Set<RelationshipType> getRelationshipTypes();
+
+    ToscaSpec setRelationshipTypes(Set<RelationshipType> nodeTypes);
 
     <T> T getParent(T child);
 }

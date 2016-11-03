@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.tosca.docs.model.AbstractModelEntity;
 import org.tosca.docs.model.NodeType;
+import org.tosca.docs.model.RelationshipType;
 import org.tosca.docs.model.ToscaSpec;
 import org.tosca.docs.utils.Tree;
 
@@ -25,9 +26,17 @@ public class ToscaSpecImpl implements ToscaSpec {
     }
 
     private String title;
+
     @JsonDeserialize(as = TreeSet.class)
-    private Set<NodeType> nodeTypes;
-    private Tree<NodeType> nodesTypesTree;
+    private Set<NodeType> nodeTypes = new TreeSet<>();
+
+    @JsonDeserialize(as = TreeSet.class)
+    private Set<RelationshipType> relationshipTypes = new TreeSet<>();
+
+    @JsonIgnore
+    private Tree<NodeType> nodeTypesTree;
+    private Tree<RelationshipType> relationshipTypesTree;
+
 
     /**
      * @return {@link #title}
@@ -65,20 +74,37 @@ public class ToscaSpecImpl implements ToscaSpec {
         return this;
     }
 
-    @JsonIgnore
+    /**
+     * @return {@link #relationshipTypes}
+     */
     @Override
-    public Tree<NodeType> getNodeTypesTree() {
-        if (nodesTypesTree == null) {
-            nodesTypesTree = createTree(nodeTypes);
-        }
-        return nodesTypesTree;
+    public Set<RelationshipType> getRelationshipTypes() {
+        return relationshipTypes;
+    }
+
+    /**
+     * @param relationshipTypes {@link #relationshipTypes}
+     * @return <source>this</source>
+     */
+    @Override
+    public ToscaSpecImpl setRelationshipTypes(Set<RelationshipType> relationshipTypes) {
+        this.relationshipTypes = relationshipTypes;
+        return this;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public <T> T getParent(T child) {
         if (child instanceof NodeType) {
-            return (T) getNodeTypesTree().getParent((NodeType) child);
+            if (nodeTypesTree == null) {
+                nodeTypesTree = createTree(nodeTypes);
+            }
+            return (T) nodeTypesTree.getParent((NodeType) child);
+        } else if (child instanceof RelationshipType) {
+            if (relationshipTypesTree == null) {
+                relationshipTypesTree = createTree(relationshipTypes);
+            }
+            return (T) relationshipTypesTree.getParent((RelationshipType) child);
         }
         throw new IllegalArgumentException("Child of type " + child.getClass().getName() + " is not supported");
     }

@@ -1,27 +1,25 @@
 package org.tosca.docs.model.impl;
 
 import org.tosca.docs.model.Attribute;
-import org.tosca.docs.model.Capability;
-import org.tosca.docs.model.NodeType;
 import org.tosca.docs.model.Property;
+import org.tosca.docs.model.RelationshipType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implements NodeType<NodeTypeImpl>, Comparable<NodeTypeImpl> {
+public class RelationshipTypeImpl extends AbstractModelEntityImpl<RelationshipTypeImpl> implements RelationshipType<RelationshipTypeImpl>, Comparable<RelationshipTypeImpl> {
 
     private List<? extends Property> properties = new ArrayList<>(0);
     private List<? extends Attribute> attributes = new ArrayList<>(0);
     private String derivedFrom;
-    private List<Capability> capabilities = new ArrayList<>(0);
 
-    public static String getId(NodeType nodeType) {
-        return nodeType.getTypeUri();
+    public static String getId(RelationshipType relationshipType) {
+        return relationshipType.getTypeUri();
     }
 
     @Override
     public String getId() {
-        return NodeTypeImpl.getId(this);
+        return RelationshipTypeImpl.getId(this);
     }
 
     /**
@@ -37,7 +35,7 @@ public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implemen
      * @return <source>this</source>
      */
     @Override
-    public NodeTypeImpl setProperties(List<? extends Property> properties) {
+    public RelationshipTypeImpl setProperties(List<? extends Property> properties) {
         this.properties = properties;
         return this;
     }
@@ -55,7 +53,7 @@ public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implemen
      * @return <source>this</source>
      */
     @Override
-    public NodeType setAttributes(List<? extends Attribute> attributes) {
+    public RelationshipType setAttributes(List<? extends Attribute> attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -73,24 +71,8 @@ public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implemen
      * @return <source>this</source>
      */
     @Override
-    public NodeType setDerivedFrom(String derivedFrom) {
+    public RelationshipType setDerivedFrom(String derivedFrom) {
         this.derivedFrom = derivedFrom;
-        return this;
-    }
-
-    /**
-     * @return {@link #capabilities}
-     */
-    public List<Capability> getCapabilities() {
-        return capabilities;
-    }
-
-    /**
-     * @param capabilities {@link #capabilities}
-     * @return <source>this</source>
-     */
-    public NodeType setCapabilities(List<Capability> capabilities) {
-        this.capabilities = capabilities;
         return this;
     }
 
@@ -99,9 +81,9 @@ public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implemen
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NodeTypeImpl nodeType = (NodeTypeImpl) o;
+        RelationshipTypeImpl relationshipType = (RelationshipTypeImpl) o;
 
-        return getId() != null ? getId().equals(nodeType.getId()) : nodeType.getId() == null;
+        return getId() != null ? getId().equals(relationshipType.getId()) : relationshipType.getId() == null;
 
     }
 
@@ -111,7 +93,7 @@ public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implemen
     }
 
     @Override
-    public int compareTo(NodeTypeImpl o) {
+    public int compareTo(RelationshipTypeImpl o) {
         return getId().compareTo(o.getId());
     }
 }

@@ -5,8 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tosca</groupId>
-    <artifactId>docs-generator</artifactId>
+    <artifactId>tosca-docs-generator</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+    </properties>
 
     <dependencies>
         <!--Guava for collection utilities etc.-->
@@ -58,6 +63,13 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.21</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--Validation for @Nullable, etc-->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.0</version>
         </dependency>
 
         <!--Apache HTTP components for HTML validation-->

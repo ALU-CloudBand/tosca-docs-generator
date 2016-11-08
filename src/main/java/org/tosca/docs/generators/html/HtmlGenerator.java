@@ -1,11 +1,11 @@
 package org.tosca.docs.generators.html;
 
 import com.googlecode.jatl.Html;
-import com.sun.istack.internal.Nullable;
 import org.apache.commons.io.IOUtils;
 import org.tosca.docs.model.*;
 import org.tosca.docs.utils.Messages;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
@@ -76,7 +76,7 @@ public class HtmlGenerator {
         html.endAll();
     }
 
-    private HtmlRelationshipTypeGenerator createRelationshipTypeGenerator() {
+    protected HtmlRelationshipTypeGenerator createRelationshipTypeGenerator() {
         return new HtmlRelationshipTypeGenerator(this);
     }
 
@@ -90,7 +90,7 @@ public class HtmlGenerator {
 
         addIndexHeadersLinks();
 
-        html.h2().id("node_types_index_header").text(localize("headers.node_types")).end();
+        html.h2().id("node_types_index").text(localize("headers.node_types")).end();
 
         for (NodeType nodeType : spec.getNodeTypes()) {
             html
@@ -103,7 +103,7 @@ public class HtmlGenerator {
 
         html.hr();
 
-        html.h2().id("relationship_types_index_header").text(localize("headers.relationship_types")).end();
+        html.h2().id("relationship_types_index").text(localize("headers.relationship_types")).end();
 
         for (RelationshipType relationshipType : spec.getRelationshipTypes()) {
             html
@@ -117,35 +117,41 @@ public class HtmlGenerator {
         html.end(); // h1
     }
 
-    private void addIndexHeadersLinks() {
+    protected void addIndexHeadersLinks() {
         html
                 .a()
-                .href("#node_types_index_header")
+                .href("#node_types_index")
                 .text(localize("headers.node_types"))
                 .end();
 
         html
                 .a()
-                .href("#relationship_types_index_header")
+                .href("#relationship_types_index")
                 .text(localize("headers.relationship_types"))
                 .end();
     }
 
     protected void addHead() throws IOException {
 
+        html.head();
+
         String title = spec.getTitle();
         if (title == null) {
             title = localize("spec.title");
         }
 
-        html
-                .head()
-                .title().text(title).end()
-                .meta().charset(messages.getMessage("spec.charset"))
-                .style()
-                .type("text/css");
+        if (title != null) {
+            html.title().text(title).end();
+        }
 
-        String styleFile = System.getProperty(STYLE_SYSTEM_PROPERTY, "/default.css");
+        String charset = messages.getMessage("spec.charset");
+        if (charset != null) {
+            html.meta().charset(charset);
+        }
+
+        html.style().type("text/css");
+
+        String styleFile = System.getProperty(STYLE_SYSTEM_PROPERTY, "/org/tosca/docs/default.css");
         try (InputStream resourceAsStream = Messages.class.getResourceAsStream(styleFile)) {
             String style = IOUtils.toString(resourceAsStream, Charset.defaultCharset());
             html.text(style);
@@ -210,7 +216,20 @@ public class HtmlGenerator {
 
     protected void addPropertiesTable(PropertiesContainer container) {
 
-        if (container.getProperties().isEmpty()) {
+        // Creating a list of properties from all parents
+        List<Feature<Property>> properties = new ArrayList<>();
+        PropertiesContainer current = container;
+        do {
+            for (Property property : current.getProperties()) {
+                properties.add(new Feature<>(
+                        property,
+                        current == container ? null : current.getId()
+                ));
+            }
+            current = spec.getParent(current);
+        } while (current != null);
+
+        if (properties.isEmpty()) {
             return;
         }
 
@@ -237,20 +256,7 @@ public class HtmlGenerator {
                 .end()
                 .tbody();
 
-        // Creating a list of properties from all parents
-        List<Feature<Property>> properties = new ArrayList<>();
-        PropertiesContainer current = container;
-        do {
-            for (Property property : current.getProperties()) {
-                properties.add(new Feature<>(
-                        property,
-                        current == container ? null : current.getId()
-                ));
-            }
-            current = spec.getParent(current);
-        } while (current != null);
         Collections.sort(properties);
-
         for (Feature<Property> feature : properties) {
 
             Property property = feature.object;
@@ -371,7 +377,20 @@ public class HtmlGenerator {
 
     protected void addAttributesTable(AttributesContainer container) {
 
-        if (container.getAttributes().isEmpty()) {
+        // Creating a list of attributes from all parents
+        List<Feature<Attribute>> attributes = new ArrayList<>();
+        AttributesContainer current = container;
+        do {
+            for (Attribute attribute : current.getAttributes()) {
+                attributes.add(new Feature<>(
+                        attribute,
+                        current == container ? null : current.getId()
+                ));
+            }
+            current = spec.getParent(current);
+        } while (current != null);
+
+        if (attributes.isEmpty()) {
             return;
         }
 
@@ -396,20 +415,7 @@ public class HtmlGenerator {
                 .end() // thead
                 .tbody();
 
-        // Creating a list of attributes from all parents
-        List<Feature<Attribute>> attributes = new ArrayList<>();
-        AttributesContainer current = container;
-        do {
-            for (Attribute attribute : current.getAttributes()) {
-                attributes.add(new Feature<>(
-                        attribute,
-                        current == container ? null : current.getId()
-                ));
-            }
-            current = spec.getParent(current);
-        } while (current != null);
         Collections.sort(attributes);
-
         for (Feature<Attribute> feature : attributes) {
 
             Attribute attribute = feature.object;
@@ -467,7 +473,7 @@ public class HtmlGenerator {
                 .end();
     }
 
-    private class Feature<T extends Comparable<T>> implements Comparable<Feature<T>> {
+    protected class Feature<T extends Comparable<T>> implements Comparable<Feature<T>> {
         private T object;
         private String derivedFrom;
 
@@ -490,7 +496,7 @@ public class HtmlGenerator {
         return getMessage(messageKey, defaultMessage);
     }
 
-    private String getMessage(String messageKey, String defaultMessage) {
+    protected String getMessage(String messageKey, String defaultMessage) {
         String message = messages.getMessage(messageKey);
         if (message == null) {
             message = defaultMessage;

@@ -108,7 +108,7 @@ public class HtmlGeneratorTest {
 
         Locale origDefaultLocale = Locale.getDefault();
         try {
-            System.setProperty(HtmlGenerator.STYLE_SYSTEM_PROPERTY, "/test.css");
+            System.setProperty(HtmlGenerator.STYLE_SYSTEM_PROPERTY, "/org/tosca/docs/test.css");
             Locale.setDefault(new Locale("es"));
 
             compareToscaSpecWithExpected(spec, "/expected_customized_tosca_spec.html");
@@ -126,11 +126,11 @@ public class HtmlGeneratorTest {
         htmlGenerator.write(writer);
 
         String actualHtml = writer.toString();
-        File actualHtmlFile = new File("/tmp/", new File(expectedFilePath).getName().replaceFirst("expected", "actual"));
+        File actualHtmlFile = new File("/tmp", new File(expectedFilePath).getName().replaceFirst("expected", "actual"));
         writeStringToFile(actualHtml, actualHtmlFile.getAbsolutePath());
 
         try (InputStream expectedStream = HtmlGeneratorTest.class.getResourceAsStream(expectedFilePath)) {
-            Assert.assertEquals(IOUtils.toString(expectedStream, Charset.defaultCharset()), actualHtml);
+            Assert.assertEquals(IOUtils.toString(expectedStream, Charset.defaultCharset()).trim(), actualHtml.trim());
         }
     }
 

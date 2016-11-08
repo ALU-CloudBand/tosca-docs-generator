@@ -106,11 +106,11 @@ table td {
 		<div id="content">
 			<div id="left">
 				<div id="index">
-					<a href="#node_types_index_header">Node Types
+					<a href="#node_types_index">Node Types
 					</a>
-					<a href="#relationship_types_index_header">Relationship Types
+					<a href="#relationship_types_index">Relationship Types
 					</a>
-					<h2 id="node_types_index_header">Node Types
+					<h2 id="node_types_index">Node Types
 					</h2>
 					<a href="#custom.nodes.VNF" >custom.nodes.VNF
 					</a>
@@ -121,7 +121,7 @@ table td {
 					<a href="#tosca.nodes.nfv.VNF" title="The NFV VNF Node Type represents a Virtual Network Function as defined by [ETSI GS NFV-MAN 001 v1.1.1].  It is the default type that all other VNF Node Types derive from.  This allows for all VNF nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.nfv.VNF
 					</a>
 					<hr/>
-					<h2 id="relationship_types_index_header">Relationship Types
+					<h2 id="relationship_types_index">Relationship Types
 					</h2>
 					<a href="#test.relationships.Empty" >test.relationships.Empty
 					</a>
@@ -275,6 +275,112 @@ table td {
 						</tr>
 					</tbody>
 				</table>
+				<h3 id="custom.nodes.VNF_attributes">Attributes
+				</h3>
+				<table>
+					<thead>
+						<tr class="table_row" >
+							<th class="table_header">Name
+							</th>
+							<th class="table_header">Required?
+							</th>
+							<th class="table_header">Type
+							</th>
+							<th class="table_header">Default
+							</th>
+							<th class="table_header">Description
+							</th>
+							<th class="table_header">Derived from
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="table_row" id="custom.nodes.VNF_attributes_outputs">
+							<td class="table_data">outputs
+							</td>
+							<td class="table_data">false
+							</td>
+							<td class="table_data">json
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">tosca.nodes.nfv.VNF
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.VNF_attributes_placement">
+							<td class="table_data">placement
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">json
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">tosca.nodes.nfv.VNF
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.VNF_attributes_state">
+							<td class="table_data">state
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data">initial
+							</td>
+							<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.VNF_attributes_tosca_id">
+							<td class="table_data">tosca_id
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.VNF_attributes_tosca_name">
+							<td class="table_data">tosca_name
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.VNF_attributes_vnfr_id">
+							<td class="table_data">vnfr_id
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.
+							</td>
+							<td class="table_data">tosca.nodes.nfv.VNF
+							</td>
+						</tr>
+					</tbody>
+				</table>
 				<h3 id="custom.nodes.VNF_capabilities">Capabilities
 				</h3>
 				<table>
@@ -325,6 +431,70 @@ table td {
 					</ul>
 					<br/>
 				</div>
+				<h3 id="test.nodes.Empty_attributes">Attributes
+				</h3>
+				<table>
+					<thead>
+						<tr class="table_row" >
+							<th class="table_header">Name
+							</th>
+							<th class="table_header">Required?
+							</th>
+							<th class="table_header">Type
+							</th>
+							<th class="table_header">Default
+							</th>
+							<th class="table_header">Description
+							</th>
+							<th class="table_header">Derived from
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="table_row" id="test.nodes.Empty_attributes_state">
+							<td class="table_data">state
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data">initial
+							</td>
+							<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+						<tr class="table_row" id="test.nodes.Empty_attributes_tosca_id">
+							<td class="table_data">tosca_id
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+						<tr class="table_row" id="test.nodes.Empty_attributes_tosca_name">
+							<td class="table_data">tosca_name
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+					</tbody>
+				</table>
 				<hr/>
 				<h2 id="tosca.nodes.Root">tosca.nodes.Root
 				</h2>
@@ -647,6 +817,56 @@ table td {
 							</ul>
 							<br/>
 						</div>
+						<h3 id="test.relationships.Empty_attributes">Attributes
+						</h3>
+						<table>
+							<thead>
+								<tr class="table_row" >
+									<th class="table_header">Name
+									</th>
+									<th class="table_header">Required?
+									</th>
+									<th class="table_header">Type
+									</th>
+									<th class="table_header">Default
+									</th>
+									<th class="table_header">Description
+									</th>
+									<th class="table_header">Derived from
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table_row" id="test.relationships.Empty_attributes_tosca_id">
+									<td class="table_data">tosca_id
+									</td>
+									<td class="table_data">true
+									</td>
+									<td class="table_data">string
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table_data">tosca.relationships.Root
+									</td>
+								</tr>
+								<tr class="table_row" id="test.relationships.Empty_attributes_tosca_name">
+									<td class="table_data">tosca_name
+									</td>
+									<td class="table_data">true
+									</td>
+									<td class="table_data">string
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table_data">tosca.relationships.Root
+									</td>
+								</tr>
+							</tbody>
+						</table>
 						<hr/>
 						<h2 id="tosca.relationships.Root">tosca.relationships.Root
 						</h2>

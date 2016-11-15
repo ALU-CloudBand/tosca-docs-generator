@@ -110,6 +110,8 @@ table td {
 					</a>
 					<a href="#relationship_types_index">Relationship Types
 					</a>
+					<a href="#capability_types_index">Capability Types
+					</a>
 					<h2 id="node_types_index">Node Types
 					</h2>
 					<a href="#custom.nodes.VNF" >custom.nodes.VNF
@@ -126,6 +128,13 @@ table td {
 					<a href="#test.relationships.Empty" >test.relationships.Empty
 					</a>
 					<a href="#tosca.relationships.Root" >tosca.relationships.Root
+					</a>
+					<hr/>
+					<h2 id="capability_types_index">Capability Types
+					</h2>
+					<a href="#tosca.capabilities.Endpoint" >tosca.capabilities.Endpoint
+					</a>
+					<a href="#tosca.capabilities.Root" title="This is the default (root) TOSCA Capability Type definition that all other TOSCA Capability Types derive from.">tosca.capabilities.Root
 					</a>
 				</div>
 			</div>
@@ -923,6 +932,119 @@ table td {
 							</tbody>
 						</table>
 						<hr/>
+						<h2 id="tosca.capabilities.Endpoint">tosca.capabilities.Endpoint
+						</h2>
+						<div class="derived_from_hierarchy_tree">
+							<ul>
+								<li>
+									<a href="#tosca.capabilities.Endpoint" title="This is the default (root) TOSCA Capability Type definition that all other TOSCA Capability Types derive from.">tosca.capabilities.Root
+									</a>
+								</li>
+								<li>
+									<ul>
+										<li>tosca.capabilities.Endpoint
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<br/>
+						</div>
+						<h3 id="tosca.capabilities.Endpoint_properties">Properties
+						</h3>
+						<table>
+							<thead>
+								<tr class="table_row" >
+									<th class="table_header">Name
+									</th>
+									<th class="table_header">Required?
+									</th>
+									<th class="table_header">Type
+									</th>
+									<th class="table_header">Status
+									</th>
+									<th class="table_header">Default
+									</th>
+									<th class="table_header">Description
+									</th>
+									<th class="table_header">Constraints
+									</th>
+									<th class="table_header">Derived from
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table_row" id="tosca.capabilities.Endpoint_properties_port">
+									<td class="table_data">port
+									</td>
+									<td class="table_data">false
+									</td>
+									<td class="table_data">integer
+									</td>
+									<td class="table_data">supported
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table.data">
+										<ul>
+											<li>greater_or_equal 1
+											</li>
+											<li>less_or_equal 65535
+											</li>
+										</ul>
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.capabilities.Endpoint_properties_protocol">
+									<td class="table_data">protocol
+									</td>
+									<td class="table_data">false
+									</td>
+									<td class="table_data">string
+									</td>
+									<td class="table_data">supported
+									</td>
+									<td class="table_data">http
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table.data">
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.capabilities.Endpoint_properties_secure">
+									<td class="table_data">secure
+									</td>
+									<td class="table_data">false
+									</td>
+									<td class="table_data">boolean
+									</td>
+									<td class="table_data">supported
+									</td>
+									<td class="table_data">false
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table.data">
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<hr/>
+						<h2 id="tosca.capabilities.Root">tosca.capabilities.Root
+						</h2>
+						<div class="derived_from_hierarchy_tree">
+						</div>
+						<div class="capability_type description">This is the default (root) TOSCA Capability Type definition that all other TOSCA Capability Types derive from.
+							<br/>
+							<br/>
+							<hr/>
+						</div>
 					</div>
 				</div>
 			</div>

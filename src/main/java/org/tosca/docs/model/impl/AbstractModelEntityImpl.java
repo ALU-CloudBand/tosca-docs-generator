@@ -1,13 +1,20 @@
 package org.tosca.docs.model.impl;
 
 import org.tosca.docs.model.AbstractModelEntity;
+import org.tosca.docs.model.Property;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@SuppressWarnings("unchecked")
 public abstract class AbstractModelEntityImpl<T extends AbstractModelEntityImpl> extends AbstractModelImpl<T> implements AbstractModelEntity<T> {
 
     private String shorthandName;
     private String typeQualifiedName;
     private String typeUri;
     private String description;
+    private List<? extends Property> properties = new ArrayList<>(0);
+    private String derivedFrom;
 
     /**
      * @return {@link #shorthandName}
@@ -81,8 +88,39 @@ public abstract class AbstractModelEntityImpl<T extends AbstractModelEntityImpl>
         return (T) this;
     }
 
+    /**
+     * @return {@link #properties}
+     */
+    @Override
+    public List<? extends Property> getProperties() {
+        return properties;
+    }
+
+    /**
+     * @param properties {@link #properties}
+     * @return <source>this</source>
+     */
+    @Override
+    public T setProperties(List<? extends Property> properties) {
+        this.properties = properties;
+        return (T) this;
+    }
+
+    /**
+     * @return {@link #derivedFrom}
+     */
     @Override
     public String getDerivedFrom() {
-        return null;
+        return derivedFrom;
+    }
+
+    /**
+     * @param derivedFrom {@link #derivedFrom}
+     * @return <source>this</source>
+     */
+    @Override
+    public T setDerivedFrom(String derivedFrom) {
+        this.derivedFrom = derivedFrom;
+        return (T) this;
     }
 }

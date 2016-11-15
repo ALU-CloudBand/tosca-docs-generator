@@ -6,24 +6,12 @@ import org.tosca.docs.model.impl.NodeTypeImpl;
 import java.util.List;
 
 @JsonDeserialize(as = NodeTypeImpl.class)
-public interface NodeType<T extends AbstractModel> extends AbstractModelEntity<T>, AttributesContainer, PropertiesContainer, CapabilitiesContainer {
-
-    @Override
-    List<? extends Property> getProperties();
-
-    NodeType setProperties(List<? extends Property> properties);
+public interface NodeType<T extends AbstractModelEntity> extends AbstractModelEntity<T>, AttributesContainer, CapabilitiesContainer {
 
     @Override
     List<? extends Attribute> getAttributes();
 
     NodeType setAttributes(List<? extends Attribute> attributes);
-
-    @Override
-    String getDerivedFrom();
-
-    NodeType setDerivedFrom(String derivedFrom);
-
-    List<Capability> getCapabilities();
 
     NodeType setCapabilities(List<Capability> capabilities);
 }

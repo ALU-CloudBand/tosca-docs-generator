@@ -14,6 +14,12 @@ import java.util.*;
 
 public class HtmlGenerator {
     public static final String STYLE_SYSTEM_PROPERTY = "org.tosca.docs.generators.html.style";
+    public static final String HEADERS_CAPABILITY_TYPES = "headers.capability_types";
+    public static final String CAPABILITY_TYPES_INDEX = "capability_types_index";
+    public static final String RELATIONSHIP_TYPES_INDEX = "relationship_types_index";
+    public static final String NODE_TYPES_INDEX = "node_types_index";
+    public static final String HEADERS_RELATIONSHIP_TYPES = "headers.relationship_types";
+    public static final String HEADERS_NODE_TYPES = "headers.node_types";
 
     protected final ToscaSpec spec;
     protected Messages messages;
@@ -57,7 +63,7 @@ public class HtmlGenerator {
         html.div().id("right");
 
         html.hr();
-        html.h1().id("node_types").style("text-align: center").text(localize("headers.node_types")).end();
+        html.h1().id("node_types").style("text-align: center").text(localize(HEADERS_NODE_TYPES)).end();
         html.hr();
 
         HtmlNodeTypeGenerator nodeTypeGenerator = createNodeTypeGenerator();
@@ -65,7 +71,7 @@ public class HtmlGenerator {
             nodeTypeGenerator.add(nodeType);
         }
 
-        html.h1().id("relationship_types").style("text-align: center").text(localize("headers.relationship_types")).end();
+        html.h1().id("relationship_types").style("text-align: center").text(localize(HEADERS_RELATIONSHIP_TYPES)).end();
         html.hr();
 
         HtmlRelationshipTypeGenerator relationshipTypeGenerator = createRelationshipTypeGenerator();
@@ -73,11 +79,20 @@ public class HtmlGenerator {
             relationshipTypeGenerator.add(relationshipType);
         }
 
+        HtmlCapabilityTypeGenerator capabiltyTypeGenerator = createCapabilityTypeGenerator();
+        for (CapabilityType capabilityType : spec.getCapabilityTypes()) {
+            capabiltyTypeGenerator.add(capabilityType);
+        }
+
         html.endAll();
     }
 
     protected HtmlRelationshipTypeGenerator createRelationshipTypeGenerator() {
         return new HtmlRelationshipTypeGenerator(this);
+    }
+
+    protected HtmlCapabilityTypeGenerator createCapabilityTypeGenerator() {
+        return new HtmlCapabilityTypeGenerator(this);
     }
 
     protected HtmlNodeTypeGenerator createNodeTypeGenerator() {
@@ -90,7 +105,7 @@ public class HtmlGenerator {
 
         addIndexHeadersLinks();
 
-        html.h2().id("node_types_index").text(localize("headers.node_types")).end();
+        html.h2().id(NODE_TYPES_INDEX).text(localize(HEADERS_NODE_TYPES)).end();
 
         for (NodeType nodeType : spec.getNodeTypes()) {
             html
@@ -103,7 +118,7 @@ public class HtmlGenerator {
 
         html.hr();
 
-        html.h2().id("relationship_types_index").text(localize("headers.relationship_types")).end();
+        html.h2().id(RELATIONSHIP_TYPES_INDEX).text(localize(HEADERS_RELATIONSHIP_TYPES)).end();
 
         for (RelationshipType relationshipType : spec.getRelationshipTypes()) {
             html
@@ -114,20 +129,39 @@ public class HtmlGenerator {
                     .end();
         }
 
-        html.end(); // h1
+        html.hr();
+
+        html.h2().id(CAPABILITY_TYPES_INDEX).text(localize(HEADERS_CAPABILITY_TYPES)).end();
+
+        for (CapabilityType capabilityType : spec.getCapabilityTypes()) {
+            html
+                    .a()
+                    .href("#" + getIndexId(capabilityType))
+                    .title(capabilityType.getDescription())
+                    .text(capabilityType.getTypeUri())
+                    .end();
+        }
+
+        html.end(); // div
     }
 
     protected void addIndexHeadersLinks() {
         html
                 .a()
-                .href("#node_types_index")
-                .text(localize("headers.node_types"))
+                .href("#" + NODE_TYPES_INDEX)
+                .text(localize(HEADERS_NODE_TYPES))
                 .end();
 
         html
                 .a()
-                .href("#relationship_types_index")
-                .text(localize("headers.relationship_types"))
+                .href("#" + RELATIONSHIP_TYPES_INDEX)
+                .text(localize(HEADERS_RELATIONSHIP_TYPES))
+                .end();
+
+        html
+                .a()
+                .href("#" + CAPABILITY_TYPES_INDEX)
+                .text(localize(HEADERS_CAPABILITY_TYPES))
                 .end();
     }
 

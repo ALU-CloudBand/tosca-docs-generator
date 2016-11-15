@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.tosca.docs.model.AbstractModelEntity;
-import org.tosca.docs.model.NodeType;
-import org.tosca.docs.model.RelationshipType;
-import org.tosca.docs.model.ToscaSpec;
+import org.tosca.docs.model.*;
 import org.tosca.docs.utils.Tree;
 
 import java.util.HashMap;
@@ -33,9 +30,15 @@ public class ToscaSpecImpl implements ToscaSpec {
     @JsonDeserialize(as = TreeSet.class)
     private Set<RelationshipType> relationshipTypes = new TreeSet<>();
 
+    @JsonDeserialize(as = TreeSet.class)
+    private Set<CapabilityType> capabilityTypes = new TreeSet<>();
+
     @JsonIgnore
     private Tree<NodeType> nodeTypesTree;
+    @JsonIgnore
     private Tree<RelationshipType> relationshipTypesTree;
+    @JsonIgnore
+    private Tree<CapabilityType> capabilityTypesTree;
 
 
     /**
@@ -92,6 +95,23 @@ public class ToscaSpecImpl implements ToscaSpec {
         return this;
     }
 
+    /**
+     * @return {@link #capabilityTypes}
+     */
+    @Override
+    public Set<CapabilityType> getCapabilityTypes() {
+        return capabilityTypes;
+    }
+
+    /**
+     * @param capabilityTypes {@link #capabilityTypes}
+     */
+    @Override
+    public ToscaSpecImpl setCapabilityTypes(Set<CapabilityType> capabilityTypes) {
+        this.capabilityTypes = capabilityTypes;
+        return this;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public <T> T getParent(T child) {
@@ -105,6 +125,11 @@ public class ToscaSpecImpl implements ToscaSpec {
                 relationshipTypesTree = createTree(relationshipTypes);
             }
             return (T) relationshipTypesTree.getParent((RelationshipType) child);
+        } else if (child instanceof CapabilityType) {
+            if (capabilityTypesTree == null) {
+                capabilityTypesTree = createTree(capabilityTypes);
+            }
+            return (T) capabilityTypesTree.getParent((CapabilityType) child);
         }
         throw new IllegalArgumentException("Child of type " + child.getClass().getName() + " is not supported");
     }

@@ -3,16 +3,13 @@ package org.tosca.docs.model.impl;
 import org.tosca.docs.model.Attribute;
 import org.tosca.docs.model.Capability;
 import org.tosca.docs.model.NodeType;
-import org.tosca.docs.model.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implements NodeType<NodeTypeImpl>, Comparable<NodeTypeImpl> {
 
-    private List<? extends Property> properties = new ArrayList<>(0);
     private List<? extends Attribute> attributes = new ArrayList<>(0);
-    private String derivedFrom;
     private List<Capability> capabilities = new ArrayList<>(0);
 
     public static String getId(NodeType nodeType) {
@@ -22,24 +19,6 @@ public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implemen
     @Override
     public String getId() {
         return NodeTypeImpl.getId(this);
-    }
-
-    /**
-     * @return {@link #properties}
-     */
-    @Override
-    public List<? extends Property> getProperties() {
-        return properties;
-    }
-
-    /**
-     * @param properties {@link #properties}
-     * @return <source>this</source>
-     */
-    @Override
-    public NodeTypeImpl setProperties(List<? extends Property> properties) {
-        this.properties = properties;
-        return this;
     }
 
     /**
@@ -61,26 +40,9 @@ public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implemen
     }
 
     /**
-     * @return {@link #derivedFrom}
-     */
-    @Override
-    public String getDerivedFrom() {
-        return derivedFrom;
-    }
-
-    /**
-     * @param derivedFrom {@link #derivedFrom}
-     * @return <source>this</source>
-     */
-    @Override
-    public NodeType setDerivedFrom(String derivedFrom) {
-        this.derivedFrom = derivedFrom;
-        return this;
-    }
-
-    /**
      * @return {@link #capabilities}
      */
+    @Override
     public List<Capability> getCapabilities() {
         return capabilities;
     }
@@ -89,6 +51,7 @@ public class NodeTypeImpl extends AbstractModelEntityImpl<NodeTypeImpl> implemen
      * @param capabilities {@link #capabilities}
      * @return <source>this</source>
      */
+    @Override
     public NodeType setCapabilities(List<Capability> capabilities) {
         this.capabilities = capabilities;
         return this;

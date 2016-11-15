@@ -1,6 +1,8 @@
 package org.tosca.docs.model;
 
-public interface AbstractModelEntity<T extends AbstractModel> extends AbstractModel<T> {
+import java.util.List;
+
+public interface AbstractModelEntity<T extends AbstractModelEntity> extends AbstractModel<T>, PropertiesContainer {
 
     String getShorthandName();
 
@@ -16,8 +18,12 @@ public interface AbstractModelEntity<T extends AbstractModel> extends AbstractMo
 
     String getDerivedFrom();
 
+    AbstractModelEntity setDerivedFrom(String derivedFrom);
+
     String getDescription();
 
     AbstractModelEntity setDescription(String description);
+
+    AbstractModelEntity setProperties(List<? extends Property> properties);
 
 }

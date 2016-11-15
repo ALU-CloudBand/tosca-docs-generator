@@ -58,24 +58,6 @@ public class RelationshipTypeImpl extends AbstractModelEntityImpl<RelationshipTy
         return this;
     }
 
-    /**
-     * @return {@link #derivedFrom}
-     */
-    @Override
-    public String getDerivedFrom() {
-        return derivedFrom;
-    }
-
-    /**
-     * @param derivedFrom {@link #derivedFrom}
-     * @return <source>this</source>
-     */
-    @Override
-    public RelationshipType setDerivedFrom(String derivedFrom) {
-        this.derivedFrom = derivedFrom;
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

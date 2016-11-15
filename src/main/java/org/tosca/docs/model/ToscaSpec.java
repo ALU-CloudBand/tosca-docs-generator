@@ -20,5 +20,9 @@ public interface ToscaSpec {
 
     ToscaSpec setRelationshipTypes(Set<RelationshipType> nodeTypes);
 
+    Set<CapabilityType> getCapabilityTypes();
+
+    ToscaSpec setCapabilityTypes(Set<CapabilityType> capabilityTypes);
+
     <T> T getParent(T child);
 }

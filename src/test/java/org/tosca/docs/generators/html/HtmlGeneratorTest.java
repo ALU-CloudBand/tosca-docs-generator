@@ -60,12 +60,51 @@ public class HtmlGeneratorTest {
                 createToscaNodesNfvVnf(),
                 createEmptyNodeType()
         ));
-        spec.setRelationshipTypes(ImmutableSet.<RelationshipType>of(
+        spec.setRelationshipTypes(ImmutableSet.of(
                 createToscaRelationshipRoot(),
                 createEmptyRelationshipType()
         ));
+        spec.setCapabilityTypes(ImmutableSet.of(
+                createToscaCapabilityRoot(),
+                createToscaCapabilityEndpoint()
+        ));
 
         compareToscaSpecWithExpected(spec, "/expected_tosca_spec.html");
+    }
+
+    private CapabilityType createToscaCapabilityRoot() {
+        return new CapabilityTypeImpl()
+                .setTypeUri("tosca.capabilities.Root")
+                .setDescription("This is the default (root) TOSCA Capability Type definition that all other TOSCA Capability Types derive from.");
+
+    }
+
+    private CapabilityType createToscaCapabilityEndpoint() {
+        return new CapabilityTypeImpl()
+                .setTypeUri("tosca.capabilities.Endpoint")
+                .setDerivedFrom("tosca.capabilities.Root")
+                .setProperties(ImmutableList.<Property>of(
+                        new PropertyImpl()
+                                .setName("protocol")
+                                .setType("string")
+                                .setDefaultValue("http"),
+                        new PropertyImpl()
+                                .setName("port")
+                                .setType("integer")
+                                .setConstraints(ImmutableList.<Constraint>of(
+                                        new ConstraintImpl()
+                                                .setOperator("greater_or_equal")
+                                                .setValue(1),
+                                        new ConstraintImpl()
+                                                .setOperator("less_or_equal")
+                                                .setValue(65535)
+                                )),
+                        new PropertyImpl()
+                                .setName("secure")
+                                .setType("boolean")
+                                .setDefaultValue(false)
+
+                ));
     }
 
     private RelationshipType createToscaRelationshipRoot() {
@@ -181,31 +220,12 @@ public class HtmlGeneratorTest {
 
     private NodeType createToscaNodesNfvVnf() {
 
-        return new NodeTypeImpl()
+        return (NodeType) new NodeTypeImpl()
                 .setTypeUri("tosca.nodes.nfv.VNF")
                 .setDescription("The NFV VNF Node Type represents a Virtual Network Function as defined by [ETSI GS NFV-MAN 001 v1.1.1].  It is the default type that all other VNF Node Types derive from.  This allows for all VNF nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).")
                 .setDerivedFrom("tosca.nodes.Root")
-                .setProperties(ImmutableList.<Property>of(
-                        new PropertyImpl()
-                                .setName("vendor")
-                                .setRequired(true)
-                                .setType(Type.STRING.toString())
-                                .setStatus(Status.SUPPORTED.toString())
-                                .setDescription("VNF vendor")
-                                .setConstraints(ImmutableList.<Constraint>of(
-                                        new ConstraintImpl(Constraint.Operator.VALID_VALUES.toString(), Arrays.asList("Nokia", "Other")),
-                                        new ConstraintImpl(Constraint.Operator.MAX_LENGTH.toString(), 5)
-                                ))
-                        ,
-                        new PropertyImpl()
-                                .setName("version")
-                                .setRequired(false)
-                                .setDefaultValue(1)
-                                .setType(Type.INTEGER.toString())
-                                .setStatus(Status.DEPRECATED.toString())
-                                .setConstraints(ImmutableList.<Constraint>of(
-                                        new ConstraintImpl(Constraint.Operator.PATTERN.toString(), "\\d\\.\\d")
-                                ))
+                .setCapabilities(ImmutableList.<Capability>of(
+                        new CapabilityImpl("feature", "tosca.capabilities.Feature")
                 ))
                 .setAttributes(ImmutableList.of(
                         new AttributeImpl()
@@ -227,24 +247,43 @@ public class HtmlGeneratorTest {
                                 .setType("json")
                         )
                 )
-                .setCapabilities(ImmutableList.<Capability>of(
-                        new CapabilityImpl("feature", "tosca.capabilities.Feature")
+                .setProperties(ImmutableList.<Property>of(
+                        new PropertyImpl()
+                                .setName("vendor")
+                                .setRequired(true)
+                                .setType(Type.STRING.toString())
+                                .setStatus(Status.SUPPORTED.toString())
+                                .setDescription("VNF vendor")
+                                .setConstraints(ImmutableList.<Constraint>of(
+                                        new ConstraintImpl(Constraint.Operator.VALID_VALUES.toString(), Arrays.asList("Nokia", "Other")),
+                                        new ConstraintImpl(Constraint.Operator.MAX_LENGTH.toString(), 5)
+                                ))
+                        ,
+                        new PropertyImpl()
+                                .setName("version")
+                                .setRequired(false)
+                                .setDefaultValue(1)
+                                .setType(Type.INTEGER.toString())
+                                .setStatus(Status.DEPRECATED.toString())
+                                .setConstraints(ImmutableList.<Constraint>of(
+                                        new ConstraintImpl(Constraint.Operator.PATTERN.toString(), "\\d\\.\\d")
+                                ))
                 ));
     }
 
     private NodeType createCustomVnf() {
-        return new NodeTypeImpl()
+        return (NodeType) new NodeTypeImpl()
                 .setTypeUri("custom.nodes.VNF")
                 .setShorthandName("CustomVnf")
                 .setTypeQualifiedName("TypeQualifiedName")
                 .setDerivedFrom("tosca.nodes.nfv.VNF")
+                .setCapabilities(ImmutableList.<Capability>of(
+                        new CapabilityImpl("dependable", "tosca.capabilities.Dependable")
+                ))
                 .setProperties(ImmutableList.<Property>of(
                         new PropertyImpl()
                                 .setName("custom_prop")
                                 .setType(Type.STRING.toString())
-                ))
-                .setCapabilities(ImmutableList.<Capability>of(
-                        new CapabilityImpl("dependable", "tosca.capabilities.Dependable")
                 ));
     }
 

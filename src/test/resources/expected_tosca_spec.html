@@ -91,6 +91,14 @@ table td {
 
 }
 
+.capability_type {
+
+}
+
+.entities_header {
+    text-align: center
+}
+
 .description {
 
 }
@@ -114,13 +122,13 @@ table td {
 					</a>
 					<h2 id="node_types_index">Node Types
 					</h2>
-					<a href="#custom.nodes.VNF" >custom.nodes.VNF
+					<a href="#custom.nodes.Compute" >custom.nodes.Compute
 					</a>
 					<a href="#test.nodes.Empty" >test.nodes.Empty
 					</a>
-					<a href="#tosca.nodes.Root" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
+					<a href="#tosca.nodes.Compute" title="The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) “server”.">tosca.nodes.Compute
 					</a>
-					<a href="#tosca.nodes.nfv.VNF" title="The NFV VNF Node Type represents a Virtual Network Function as defined by [ETSI GS NFV-MAN 001 v1.1.1].  It is the default type that all other VNF Node Types derive from.  This allows for all VNF nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.nfv.VNF
+					<a href="#tosca.nodes.Root" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
 					</a>
 					<hr/>
 					<h2 id="relationship_types_index">Relationship Types
@@ -140,24 +148,24 @@ table td {
 			</div>
 			<div id="right">
 				<hr/>
-				<h1 id="node_types" style="text-align: center">Node Types
+				<h1 id="node_types" class="entities_header">Node Types
 				</h1>
 				<hr/>
-				<h2 id="custom.nodes.VNF">custom.nodes.VNF
+				<h2 id="custom.nodes.Compute">custom.nodes.Compute
 				</h2>
 				<div class="derived_from_hierarchy_tree">
 					<ul>
 						<li>
-							<a href="#custom.nodes.VNF" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
+							<a href="#tosca.nodes.Root" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
 							</a>
 							<ul>
 								<li>
-									<a href="#custom.nodes.VNF" title="The NFV VNF Node Type represents a Virtual Network Function as defined by [ETSI GS NFV-MAN 001 v1.1.1].  It is the default type that all other VNF Node Types derive from.  This allows for all VNF nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.nfv.VNF
+									<a href="#tosca.nodes.Compute" title="The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) “server”.">tosca.nodes.Compute
 									</a>
 								</li>
 								<li>
 									<ul>
-										<li>custom.nodes.VNF
+										<li>custom.nodes.Compute
 										</li>
 									</ul>
 								</li>
@@ -183,12 +191,12 @@ table td {
 						<tr>
 							<td class="table_data table_data_header">Type URI
 							</td>
-							<td>custom.nodes.VNF
+							<td>custom.nodes.Compute
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<h3 id="custom.nodes.VNF_properties">Properties
+				<h3 id="custom.nodes.Compute_properties">Properties
 				</h3>
 				<table>
 					<thead>
@@ -212,7 +220,7 @@ table td {
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="table_row" id="custom.nodes.VNF_properties_custom_prop">
+						<tr class="table_row" id="custom.nodes.Compute_properties_custom_prop">
 							<td class="table_data">custom_prop
 							</td>
 							<td class="table_data">false
@@ -230,61 +238,9 @@ table td {
 							<td class="table_data null_value" title="null">
 							</td>
 						</tr>
-						<tr class="table_row" id="custom.nodes.VNF_properties_vendor">
-							<td class="table_data">vendor
-							</td>
-							<td class="table_data">true
-							</td>
-							<td class="table_data">string
-							</td>
-							<td class="table_data">supported
-							</td>
-							<td class="table_data null_value" title="null">
-							</td>
-							<td class="table_data">VNF vendor
-							</td>
-							<td class="table.data">
-								<ul>
-									<li>valid_values
-										<ul>
-											<li>Nokia
-											</li>
-											<li>Other
-											</li>
-										</ul>
-									</li>
-									<li>max_length 5
-									</li>
-								</ul>
-							</td>
-							<td class="table_data">tosca.nodes.nfv.VNF
-							</td>
-						</tr>
-						<tr class="table_row" id="custom.nodes.VNF_properties_version">
-							<td class="table_data">version
-							</td>
-							<td class="table_data">false
-							</td>
-							<td class="table_data">integer
-							</td>
-							<td class="table_data">deprecated
-							</td>
-							<td class="table_data">1
-							</td>
-							<td class="table_data null_value" title="null">
-							</td>
-							<td class="table.data">
-								<ul>
-									<li>pattern \d\.\d
-									</li>
-								</ul>
-							</td>
-							<td class="table_data">tosca.nodes.nfv.VNF
-							</td>
-						</tr>
 					</tbody>
 				</table>
-				<h3 id="custom.nodes.VNF_attributes">Attributes
+				<h3 id="custom.nodes.Compute_attributes">Attributes
 				</h3>
 				<table>
 					<thead>
@@ -304,35 +260,63 @@ table td {
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="table_row" id="custom.nodes.VNF_attributes_outputs">
-							<td class="table_data">outputs
-							</td>
-							<td class="table_data">false
-							</td>
-							<td class="table_data">json
-							</td>
-							<td class="table_data null_value" title="null">
-							</td>
-							<td class="table_data null_value" title="null">
-							</td>
-							<td class="table_data">tosca.nodes.nfv.VNF
-							</td>
-						</tr>
-						<tr class="table_row" id="custom.nodes.VNF_attributes_placement">
-							<td class="table_data">placement
+						<tr class="table_row" id="custom.nodes.Compute_attributes_networks">
+							<td class="table_data">networks
 							</td>
 							<td class="table_data">true
 							</td>
-							<td class="table_data">json
+							<td class="table_data">map
 							</td>
 							<td class="table_data null_value" title="null">
 							</td>
 							<td class="table_data null_value" title="null">
 							</td>
-							<td class="table_data">tosca.nodes.nfv.VNF
+							<td class="table_data">tosca.nodes.Compute
 							</td>
 						</tr>
-						<tr class="table_row" id="custom.nodes.VNF_attributes_state">
+						<tr class="table_row" id="custom.nodes.Compute_attributes_ports">
+							<td class="table_data">ports
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">map
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">tosca.nodes.Compute
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.Compute_attributes_private_address">
+							<td class="table_data">private_address
+							</td>
+							<td class="table_data">true
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">Private IP address
+							</td>
+							<td class="table_data">tosca.nodes.Compute
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.Compute_attributes_public_address">
+							<td class="table_data">public_address
+							</td>
+							<td class="table_data">false
+							</td>
+							<td class="table_data">string
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+							<td class="table_data">Public IP address
+							</td>
+							<td class="table_data">tosca.nodes.Compute
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.Compute_attributes_state">
 							<td class="table_data">state
 							</td>
 							<td class="table_data">true
@@ -346,7 +330,7 @@ table td {
 							<td class="table_data">tosca.nodes.Root
 							</td>
 						</tr>
-						<tr class="table_row" id="custom.nodes.VNF_attributes_tosca_id">
+						<tr class="table_row" id="custom.nodes.Compute_attributes_tosca_id">
 							<td class="table_data">tosca_id
 							</td>
 							<td class="table_data">true
@@ -360,7 +344,7 @@ table td {
 							<td class="table_data">tosca.nodes.Root
 							</td>
 						</tr>
-						<tr class="table_row" id="custom.nodes.VNF_attributes_tosca_name">
+						<tr class="table_row" id="custom.nodes.Compute_attributes_tosca_name">
 							<td class="table_data">tosca_name
 							</td>
 							<td class="table_data">true
@@ -374,23 +358,9 @@ table td {
 							<td class="table_data">tosca.nodes.Root
 							</td>
 						</tr>
-						<tr class="table_row" id="custom.nodes.VNF_attributes_vnfr_id">
-							<td class="table_data">vnfr_id
-							</td>
-							<td class="table_data">true
-							</td>
-							<td class="table_data">string
-							</td>
-							<td class="table_data null_value" title="null">
-							</td>
-							<td class="table_data">A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.
-							</td>
-							<td class="table_data">tosca.nodes.nfv.VNF
-							</td>
-						</tr>
 					</tbody>
 				</table>
-				<h3 id="custom.nodes.VNF_capabilities">Capabilities
+				<h3 id="custom.nodes.Compute_capabilities">Capabilities
 				</h3>
 				<table>
 					<thead>
@@ -404,7 +374,7 @@ table td {
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="table_row" id="custom.nodes.VNF_capabilities_dependable">
+						<tr class="table_row" id="custom.nodes.Compute_capabilities_dependable">
 							<td class="table_data">dependable
 							</td>
 							<td class="table_data">tosca.capabilities.Dependable
@@ -412,12 +382,12 @@ table td {
 							<td class="table_data null_value" title="null">
 							</td>
 						</tr>
-						<tr class="table_row" id="custom.nodes.VNF_capabilities_feature">
+						<tr class="table_row" id="custom.nodes.Compute_capabilities_feature">
 							<td class="table_data">feature
 							</td>
 							<td class="table_data">tosca.capabilities.Feature
 							</td>
-							<td class="table_data">tosca.nodes.nfv.VNF
+							<td class="table_data">tosca.nodes.Compute
 							</td>
 						</tr>
 					</tbody>
@@ -428,7 +398,7 @@ table td {
 				<div class="derived_from_hierarchy_tree">
 					<ul>
 						<li>
-							<a href="#test.nodes.Empty" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
+							<a href="#tosca.nodes.Root" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
 							</a>
 						</li>
 						<li>
@@ -505,14 +475,27 @@ table td {
 					</tbody>
 				</table>
 				<hr/>
-				<h2 id="tosca.nodes.Root">tosca.nodes.Root
+				<h2 id="tosca.nodes.Compute">tosca.nodes.Compute
 				</h2>
 				<div class="derived_from_hierarchy_tree">
+					<ul>
+						<li>
+							<a href="#tosca.nodes.Root" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
+							</a>
+						</li>
+						<li>
+							<ul>
+								<li>tosca.nodes.Compute
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<br/>
 				</div>
-				<div class="node_type description">The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).
+				<div class="node_type description">The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) “server”.
 					<br/>
 					<br/>
-					<h3 id="tosca.nodes.Root_attributes">Attributes
+					<h3 id="tosca.nodes.Compute_attributes">Attributes
 					</h3>
 					<table>
 						<thead>
@@ -532,7 +515,63 @@ table td {
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="table_row" id="tosca.nodes.Root_attributes_state">
+							<tr class="table_row" id="tosca.nodes.Compute_attributes_networks">
+								<td class="table_data">networks
+								</td>
+								<td class="table_data">true
+								</td>
+								<td class="table_data">map
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+							</tr>
+							<tr class="table_row" id="tosca.nodes.Compute_attributes_ports">
+								<td class="table_data">ports
+								</td>
+								<td class="table_data">true
+								</td>
+								<td class="table_data">map
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+							</tr>
+							<tr class="table_row" id="tosca.nodes.Compute_attributes_private_address">
+								<td class="table_data">private_address
+								</td>
+								<td class="table_data">true
+								</td>
+								<td class="table_data">string
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+								<td class="table_data">Private IP address
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+							</tr>
+							<tr class="table_row" id="tosca.nodes.Compute_attributes_public_address">
+								<td class="table_data">public_address
+								</td>
+								<td class="table_data">false
+								</td>
+								<td class="table_data">string
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+								<td class="table_data">Public IP address
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+							</tr>
+							<tr class="table_row" id="tosca.nodes.Compute_attributes_state">
 								<td class="table_data">state
 								</td>
 								<td class="table_data">true
@@ -543,10 +582,10 @@ table td {
 								</td>
 								<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
 								</td>
-								<td class="table_data null_value" title="null">
+								<td class="table_data">tosca.nodes.Root
 								</td>
 							</tr>
-							<tr class="table_row" id="tosca.nodes.Root_attributes_tosca_id">
+							<tr class="table_row" id="tosca.nodes.Compute_attributes_tosca_id">
 								<td class="table_data">tosca_id
 								</td>
 								<td class="table_data">true
@@ -557,10 +596,10 @@ table td {
 								</td>
 								<td class="table_data">A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.
 								</td>
-								<td class="table_data null_value" title="null">
+								<td class="table_data">tosca.nodes.Root
 								</td>
 							</tr>
-							<tr class="table_row" id="tosca.nodes.Root_attributes_tosca_name">
+							<tr class="table_row" id="tosca.nodes.Compute_attributes_tosca_name">
 								<td class="table_data">tosca_name
 								</td>
 								<td class="table_data">true
@@ -571,111 +610,44 @@ table td {
 								</td>
 								<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
 								</td>
+								<td class="table_data">tosca.nodes.Root
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<h3 id="tosca.nodes.Compute_capabilities">Capabilities
+					</h3>
+					<table>
+						<thead>
+							<tr class="table_row" >
+								<th class="table_header">Name
+								</th>
+								<th class="table_header">Type
+								</th>
+								<th class="table_header">Derived from
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="table_row" id="tosca.nodes.Compute_capabilities_feature">
+								<td class="table_data">feature
+								</td>
+								<td class="table_data">tosca.capabilities.Feature
+								</td>
 								<td class="table_data null_value" title="null">
 								</td>
 							</tr>
 						</tbody>
 					</table>
 					<hr/>
-					<h2 id="tosca.nodes.nfv.VNF">tosca.nodes.nfv.VNF
+					<h2 id="tosca.nodes.Root">tosca.nodes.Root
 					</h2>
 					<div class="derived_from_hierarchy_tree">
-						<ul>
-							<li>
-								<a href="#tosca.nodes.nfv.VNF" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
-								</a>
-							</li>
-							<li>
-								<ul>
-									<li>tosca.nodes.nfv.VNF
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<br/>
 					</div>
-					<div class="node_type description">The NFV VNF Node Type represents a Virtual Network Function as defined by [ETSI GS NFV-MAN 001 v1.1.1].  It is the default type that all other VNF Node Types derive from.  This allows for all VNF nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).
+					<div class="node_type description">The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).
 						<br/>
 						<br/>
-						<h3 id="tosca.nodes.nfv.VNF_properties">Properties
-						</h3>
-						<table>
-							<thead>
-								<tr class="table_row" >
-									<th class="table_header">Name
-									</th>
-									<th class="table_header">Required?
-									</th>
-									<th class="table_header">Type
-									</th>
-									<th class="table_header">Status
-									</th>
-									<th class="table_header">Default
-									</th>
-									<th class="table_header">Description
-									</th>
-									<th class="table_header">Constraints
-									</th>
-									<th class="table_header">Derived from
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_properties_vendor">
-									<td class="table_data">vendor
-									</td>
-									<td class="table_data">true
-									</td>
-									<td class="table_data">string
-									</td>
-									<td class="table_data">supported
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-									<td class="table_data">VNF vendor
-									</td>
-									<td class="table.data">
-										<ul>
-											<li>valid_values
-												<ul>
-													<li>Nokia
-													</li>
-													<li>Other
-													</li>
-												</ul>
-											</li>
-											<li>max_length 5
-											</li>
-										</ul>
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-								</tr>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_properties_version">
-									<td class="table_data">version
-									</td>
-									<td class="table_data">false
-									</td>
-									<td class="table_data">integer
-									</td>
-									<td class="table_data">deprecated
-									</td>
-									<td class="table_data">1
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-									<td class="table.data">
-										<ul>
-											<li>pattern \d\.\d
-											</li>
-										</ul>
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<h3 id="tosca.nodes.nfv.VNF_attributes">Attributes
+						<h3 id="tosca.nodes.Root_attributes">Attributes
 						</h3>
 						<table>
 							<thead>
@@ -695,35 +667,7 @@ table td {
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_attributes_outputs">
-									<td class="table_data">outputs
-									</td>
-									<td class="table_data">false
-									</td>
-									<td class="table_data">json
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-								</tr>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_attributes_placement">
-									<td class="table_data">placement
-									</td>
-									<td class="table_data">true
-									</td>
-									<td class="table_data">json
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-								</tr>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_attributes_state">
+								<tr class="table_row" id="tosca.nodes.Root_attributes_state">
 									<td class="table_data">state
 									</td>
 									<td class="table_data">true
@@ -734,10 +678,10 @@ table td {
 									</td>
 									<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
 									</td>
-									<td class="table_data">tosca.nodes.Root
+									<td class="table_data null_value" title="null">
 									</td>
 								</tr>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_attributes_tosca_id">
+								<tr class="table_row" id="tosca.nodes.Root_attributes_tosca_id">
 									<td class="table_data">tosca_id
 									</td>
 									<td class="table_data">true
@@ -748,10 +692,10 @@ table td {
 									</td>
 									<td class="table_data">A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.
 									</td>
-									<td class="table_data">tosca.nodes.Root
+									<td class="table_data null_value" title="null">
 									</td>
 								</tr>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_attributes_tosca_name">
+								<tr class="table_row" id="tosca.nodes.Root_attributes_tosca_name">
 									<td class="table_data">tosca_name
 									</td>
 									<td class="table_data">true
@@ -762,51 +706,13 @@ table td {
 									</td>
 									<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
 									</td>
-									<td class="table_data">tosca.nodes.Root
-									</td>
-								</tr>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_attributes_vnfr_id">
-									<td class="table_data">vnfr_id
-									</td>
-									<td class="table_data">true
-									</td>
-									<td class="table_data">string
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-									<td class="table_data">A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<h3 id="tosca.nodes.nfv.VNF_capabilities">Capabilities
-						</h3>
-						<table>
-							<thead>
-								<tr class="table_row" >
-									<th class="table_header">Name
-									</th>
-									<th class="table_header">Type
-									</th>
-									<th class="table_header">Derived from
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="table_row" id="tosca.nodes.nfv.VNF_capabilities_feature">
-									<td class="table_data">feature
-									</td>
-									<td class="table_data">tosca.capabilities.Feature
-									</td>
 									<td class="table_data null_value" title="null">
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<hr/>
-						<h1 id="relationship_types" style="text-align: center">Relationship Types
+						<h1 id="relationship_types" class="entities_header">Relationship Types
 						</h1>
 						<hr/>
 						<h2 id="test.relationships.Empty">test.relationships.Empty
@@ -814,7 +720,7 @@ table td {
 						<div class="derived_from_hierarchy_tree">
 							<ul>
 								<li>
-									<a href="#test.relationships.Empty" >tosca.relationships.Root
+									<a href="#tosca.relationships.Root" >tosca.relationships.Root
 									</a>
 								</li>
 								<li>
@@ -932,12 +838,15 @@ table td {
 							</tbody>
 						</table>
 						<hr/>
+						<h1 id="capability_types" class="entities_header">Capability Types
+						</h1>
+						<hr/>
 						<h2 id="tosca.capabilities.Endpoint">tosca.capabilities.Endpoint
 						</h2>
 						<div class="derived_from_hierarchy_tree">
 							<ul>
 								<li>
-									<a href="#tosca.capabilities.Endpoint" title="This is the default (root) TOSCA Capability Type definition that all other TOSCA Capability Types derive from.">tosca.capabilities.Root
+									<a href="#tosca.capabilities.Root" title="This is the default (root) TOSCA Capability Type definition that all other TOSCA Capability Types derive from.">tosca.capabilities.Root
 									</a>
 								</li>
 								<li>

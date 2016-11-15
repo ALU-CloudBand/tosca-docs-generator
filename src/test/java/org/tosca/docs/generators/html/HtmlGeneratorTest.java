@@ -1,7 +1,6 @@
 package org.tosca.docs.generators.html;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -15,7 +14,6 @@ import org.tosca.docs.model.impl.*;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.Locale;
 
 public class HtmlGeneratorTest {
@@ -55,9 +53,9 @@ public class HtmlGeneratorTest {
 
         ToscaSpec spec = new ToscaSpecImpl();
         spec.setNodeTypes(ImmutableSet.of(
-                createCustomVnf(),
+                createCustomNodesCompute(),
                 createToscaNodesRoot(),
-                createToscaNodesNfvVnf(),
+                createToscaNodesCompute(),
                 createEmptyNodeType()
         ));
         spec.setRelationshipTypes(ImmutableSet.of(
@@ -218,65 +216,48 @@ public class HtmlGeneratorTest {
                 );
     }
 
-    private NodeType createToscaNodesNfvVnf() {
+    private NodeType createToscaNodesCompute() {
 
-        return (NodeType) new NodeTypeImpl()
-                .setTypeUri("tosca.nodes.nfv.VNF")
-                .setDescription("The NFV VNF Node Type represents a Virtual Network Function as defined by [ETSI GS NFV-MAN 001 v1.1.1].  It is the default type that all other VNF Node Types derive from.  This allows for all VNF nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).")
+        return new NodeTypeImpl()
+                .setTypeUri("tosca.nodes.Compute")
+                .setDescription("The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) “server”.")
                 .setDerivedFrom("tosca.nodes.Root")
                 .setCapabilities(ImmutableList.<Capability>of(
                         new CapabilityImpl("feature", "tosca.capabilities.Feature")
                 ))
                 .setAttributes(ImmutableList.of(
                         new AttributeImpl()
-                                .setName("vnfr_id")
+                                .setName("private_address")
                                 .setRequired(true)
                                 .setType(Type.STRING.toString())
-                                .setDescription("A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.")
-                                .setExtensions(ImmutableMap.<String, Object>of("Extension1", "Value1")),
+                                .setDescription("Private IP address"),
 
                         new AttributeImpl()
-                                .setName("outputs")
+                                .setName("public_address")
+                                .setDescription("Public IP address")
                                 .setRequired(false)
-                                .setType("json")
+                                .setType(Type.STRING.toString())
                         ,
 
                         new AttributeImpl()
-                                .setName("placement")
+                                .setName("networks")
                                 .setRequired(true)
-                                .setType("json")
+                                .setType(Type.MAP.toString()),
+
+                        new AttributeImpl()
+                                .setName("ports")
+                                .setRequired(true)
+                                .setType(Type.MAP.toString())
                         )
-                )
-                .setProperties(ImmutableList.<Property>of(
-                        new PropertyImpl()
-                                .setName("vendor")
-                                .setRequired(true)
-                                .setType(Type.STRING.toString())
-                                .setStatus(Status.SUPPORTED.toString())
-                                .setDescription("VNF vendor")
-                                .setConstraints(ImmutableList.<Constraint>of(
-                                        new ConstraintImpl(Constraint.Operator.VALID_VALUES.toString(), Arrays.asList("Nokia", "Other")),
-                                        new ConstraintImpl(Constraint.Operator.MAX_LENGTH.toString(), 5)
-                                ))
-                        ,
-                        new PropertyImpl()
-                                .setName("version")
-                                .setRequired(false)
-                                .setDefaultValue(1)
-                                .setType(Type.INTEGER.toString())
-                                .setStatus(Status.DEPRECATED.toString())
-                                .setConstraints(ImmutableList.<Constraint>of(
-                                        new ConstraintImpl(Constraint.Operator.PATTERN.toString(), "\\d\\.\\d")
-                                ))
-                ));
+                );
     }
 
-    private NodeType createCustomVnf() {
+    private NodeType createCustomNodesCompute() {
         return (NodeType) new NodeTypeImpl()
-                .setTypeUri("custom.nodes.VNF")
+                .setTypeUri("custom.nodes.Compute")
                 .setShorthandName("CustomVnf")
                 .setTypeQualifiedName("TypeQualifiedName")
-                .setDerivedFrom("tosca.nodes.nfv.VNF")
+                .setDerivedFrom("tosca.nodes.Compute")
                 .setCapabilities(ImmutableList.<Capability>of(
                         new CapabilityImpl("dependable", "tosca.capabilities.Dependable")
                 ))

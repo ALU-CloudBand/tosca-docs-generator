@@ -20,6 +20,9 @@ public class HtmlGenerator {
     public static final String NODE_TYPES_INDEX = "node_types_index";
     public static final String HEADERS_RELATIONSHIP_TYPES = "headers.relationship_types";
     public static final String HEADERS_NODE_TYPES = "headers.node_types";
+    public static final String NODE_TYPES_ID = "node_types";
+    public static final String RELATIONSHIP_TYPES_ID = "relationship_types";
+    public static final String CAPABILITY_TYPES_ID = "capability_types";
 
     protected final ToscaSpec spec;
     protected Messages messages;
@@ -63,7 +66,7 @@ public class HtmlGenerator {
         html.div().id("right");
 
         html.hr();
-        html.h1().id("node_types").style("text-align: center").text(localize(HEADERS_NODE_TYPES)).end();
+        html.h1().id(NODE_TYPES_ID).classAttr("entities_header").text(localize(HEADERS_NODE_TYPES)).end();
         html.hr();
 
         HtmlNodeTypeGenerator nodeTypeGenerator = createNodeTypeGenerator();
@@ -71,13 +74,16 @@ public class HtmlGenerator {
             nodeTypeGenerator.add(nodeType);
         }
 
-        html.h1().id("relationship_types").style("text-align: center").text(localize(HEADERS_RELATIONSHIP_TYPES)).end();
+        html.h1().id(RELATIONSHIP_TYPES_ID).classAttr("entities_header").text(localize(HEADERS_RELATIONSHIP_TYPES)).end();
         html.hr();
 
         HtmlRelationshipTypeGenerator relationshipTypeGenerator = createRelationshipTypeGenerator();
         for (RelationshipType relationshipType : spec.getRelationshipTypes()) {
             relationshipTypeGenerator.add(relationshipType);
         }
+
+        html.h1().id(CAPABILITY_TYPES_ID).classAttr("entities_header").text(localize(HEADERS_CAPABILITY_TYPES)).end();
+        html.hr();
 
         HtmlCapabilityTypeGenerator capabiltyTypeGenerator = createCapabilityTypeGenerator();
         for (CapabilityType capabilityType : spec.getCapabilityTypes()) {
@@ -355,7 +361,7 @@ public class HtmlGenerator {
                 html.ul();
                 html.li();
                 html.a()
-                        .href("#" + getIndexId(modelEntity))
+                        .href("#" + getIndexId(parent))
                         .title(parent.getDescription())
                         .text(parent.getId())
                         .end(); // a

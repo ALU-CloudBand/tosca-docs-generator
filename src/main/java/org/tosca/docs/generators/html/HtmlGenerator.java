@@ -39,7 +39,7 @@ public class HtmlGenerator {
         this.messages = new Messages();
     }
 
-    public HtmlGenerator(HtmlGenerator htmlGenerator) {
+    protected HtmlGenerator(HtmlGenerator htmlGenerator) {
         this.spec = htmlGenerator.spec;
         this.html = htmlGenerator.html;
         this.messages = htmlGenerator.messages;
@@ -191,8 +191,13 @@ public class HtmlGenerator {
 
         html.style().type("text/css");
 
-        String styleFile = System.getProperty(STYLE_SYSTEM_PROPERTY, "/org/tosca/docs/default.css");
-        try (InputStream resourceAsStream = Messages.class.getResourceAsStream(styleFile)) {
+        String styleFilePath = System.getProperty(STYLE_SYSTEM_PROPERTY, "/org/tosca/docs/default.css");
+        try (InputStream resourceAsStream = Messages.class.getResourceAsStream(styleFilePath)) {
+
+            if (resourceAsStream == null) {
+                throw new IOException("Could not read CSS style file [" + styleFilePath + "]");
+            }
+
             String style = IOUtils.toString(resourceAsStream, Charset.defaultCharset());
             html.text(style);
         }
@@ -513,21 +518,6 @@ public class HtmlGenerator {
                 .end();
     }
 
-    protected class Feature<T extends Comparable<T>> implements Comparable<Feature<T>> {
-        private T object;
-        private String derivedFrom;
-
-        public Feature(T object, String derivedFrom) {
-            this.object = object;
-            this.derivedFrom = derivedFrom;
-        }
-
-        @Override
-        public int compareTo(Feature<T> o) {
-            return object.compareTo(o.object);
-        }
-    }
-
     public String localize(String messageKey) {
         return localize(messageKey, null);
     }
@@ -542,5 +532,20 @@ public class HtmlGenerator {
             message = defaultMessage;
         }
         return message;
+    }
+
+    protected class Feature<T extends Comparable<T>> implements Comparable<Feature<T>> {
+        private T object;
+        private String derivedFrom;
+
+        public Feature(T object, String derivedFrom) {
+            this.object = object;
+            this.derivedFrom = derivedFrom;
+        }
+
+        @Override
+        public int compareTo(Feature<T> o) {
+            return object.compareTo(o.object);
+        }
     }
 }

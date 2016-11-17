@@ -8,7 +8,9 @@ import org.apache.http.client.fluent.Content;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.tosca.docs.model.*;
 import org.tosca.docs.model.impl.*;
 
@@ -17,6 +19,9 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 public class HtmlGeneratorTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     /**
      * Sends the generated HTML to an external HTML validator tool and verifies there are no errors or warnings
@@ -175,12 +180,29 @@ public class HtmlGeneratorTest {
         }
     }
 
-    private void compareToscaSpecWithExpected(ToscaSpec spec, String expectedFilePath) throws IOException {
-        spec = transform(spec, ToscaSpec.class);
+    @Test
+    public void testInvalidStyleFile() throws IOException {
 
-        StringWriter writer = new StringWriter();
-        HtmlGenerator htmlGenerator = new HtmlGenerator(spec);
-        htmlGenerator.write(writer);
+        String styleFilePath = "non_existing_style.css";
+
+        thrown.expectMessage(styleFilePath);
+        thrown.expect(IOException.class);
+
+        ToscaSpec spec = new ToscaSpecImpl();
+        spec.setNodeTypes(ImmutableSet.of(
+                createToscaNodesRoot()
+        ));
+
+        try {
+            System.setProperty(HtmlGenerator.STYLE_SYSTEM_PROPERTY, styleFilePath);
+            generateHtml(spec);
+        } finally {
+            System.clearProperty(HtmlGenerator.STYLE_SYSTEM_PROPERTY);
+        }
+    }
+
+    private void compareToscaSpecWithExpected(ToscaSpec spec, String expectedFilePath) throws IOException {
+        StringWriter writer = generateHtml(spec);
 
         String actualHtml = writer.toString();
         File actualHtmlFile = new File("/tmp", new File(expectedFilePath).getName().replaceFirst("expected", "actual"));
@@ -189,6 +211,15 @@ public class HtmlGeneratorTest {
         try (InputStream expectedStream = HtmlGeneratorTest.class.getResourceAsStream(expectedFilePath)) {
             Assert.assertEquals(IOUtils.toString(expectedStream, Charset.defaultCharset()).trim(), actualHtml.trim());
         }
+    }
+
+    private StringWriter generateHtml(ToscaSpec spec) throws IOException {
+        spec = transform(spec, ToscaSpec.class);
+
+        StringWriter writer = new StringWriter();
+        HtmlGenerator htmlGenerator = new HtmlGenerator(spec);
+        htmlGenerator.write(writer);
+        return writer;
     }
 
     private void writeStringToFile(String content, String targetFileFullPath) throws IOException {

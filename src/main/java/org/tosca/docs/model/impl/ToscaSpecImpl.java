@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import org.tosca.docs.model.*;
 import org.tosca.docs.utils.Tree;
 
@@ -39,6 +41,8 @@ public class ToscaSpecImpl implements ToscaSpec {
     private Tree<RelationshipType> relationshipTypesTree;
     @JsonIgnore
     private Tree<CapabilityType> capabilityTypesTree;
+    @JsonIgnore
+    private Table<Class, String, AbstractModelEntity> typesByClassAndName;
 
 
     /**
@@ -132,6 +136,24 @@ public class ToscaSpecImpl implements ToscaSpec {
             return (T) capabilityTypesTree.getParent((CapabilityType) child);
         }
         throw new IllegalArgumentException("Child of type " + child.getClass().getName() + " is not supported");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <ET> ET getTypeByClassAndName(Class<ET> typeClass, String typeName) {
+        if (typesByClassAndName == null) {
+            typesByClassAndName = HashBasedTable.create();
+            addTypesToTypesByClassAndNameMap(nodeTypes);
+            addTypesToTypesByClassAndNameMap(relationshipTypes);
+            addTypesToTypesByClassAndNameMap(capabilityTypes);
+        }
+        return (ET) typesByClassAndName.get(typeClass, typeName);
+    }
+
+    private void addTypesToTypesByClassAndNameMap(Set<? extends AbstractModelEntity> types) {
+        for (AbstractModelEntity entity : types) {
+            typesByClassAndName.put(entity.getClass(), entity.getId(), entity);
+        }
     }
 
     private <T extends AbstractModelEntity> Tree<T> createTree(Iterable<T> entities) {

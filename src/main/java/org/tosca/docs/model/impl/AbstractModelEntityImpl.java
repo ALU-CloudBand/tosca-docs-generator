@@ -1,6 +1,7 @@
 package org.tosca.docs.model.impl;
 
 import org.tosca.docs.model.AbstractModelEntity;
+import org.tosca.docs.model.Attribute;
 import org.tosca.docs.model.Property;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public abstract class AbstractModelEntityImpl<T extends AbstractModelEntityImpl>
     private String typeUri;
     private String description;
     private List<? extends Property> properties = new ArrayList<>(0);
+    private List<? extends Attribute> attributes = new ArrayList<>(0);
     private String derivedFrom;
 
     /**
@@ -107,6 +109,24 @@ public abstract class AbstractModelEntityImpl<T extends AbstractModelEntityImpl>
     }
 
     /**
+     * @return {@link #attributes}
+     */
+    @Override
+    public List<? extends Attribute> getAttributes() {
+        return attributes;
+    }
+
+    /**
+     * @param attributes {@link #attributes}
+     * @return <source>this</source>
+     */
+    @Override
+    public T setAttributes(List<? extends Attribute> attributes) {
+        this.attributes = attributes;
+        return (T) this;
+    }
+
+    /**
      * @return {@link #derivedFrom}
      */
     @Override
@@ -122,5 +142,21 @@ public abstract class AbstractModelEntityImpl<T extends AbstractModelEntityImpl>
     public T setDerivedFrom(String derivedFrom) {
         this.derivedFrom = derivedFrom;
         return (T) this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbstractModelEntityImpl modelEntity = (AbstractModelEntityImpl) o;
+
+        return getId() != null ? getId().equals(modelEntity.getId()) : modelEntity.getId() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
     }
 }

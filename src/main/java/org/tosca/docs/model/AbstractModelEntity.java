@@ -2,7 +2,7 @@ package org.tosca.docs.model;
 
 import java.util.List;
 
-public interface AbstractModelEntity<T extends AbstractModelEntity> extends AbstractModel<T>, PropertiesContainer {
+public interface AbstractModelEntity<T extends AbstractModelEntity> extends AbstractModel<T>, PropertiesContainer, AttributesContainer {
 
     String getShorthandName();
 
@@ -26,4 +26,5 @@ public interface AbstractModelEntity<T extends AbstractModelEntity> extends Abst
 
     AbstractModelEntity setProperties(List<? extends Property> properties);
 
+    AbstractModelEntity setAttributes(List<? extends Attribute> attributes);
 }

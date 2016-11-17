@@ -130,6 +130,8 @@ table td {
 					</a>
 					<a href="#tosca.nodes.Root" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
 					</a>
+					<a href="#tosca.nodes.SoftwareComponent" >tosca.nodes.SoftwareComponent
+					</a>
 					<hr/>
 					<h2 id="relationship_types_index">Relationship Types
 					</h2>
@@ -140,7 +142,7 @@ table td {
 					<hr/>
 					<h2 id="capability_types_index">Capability Types
 					</h2>
-					<a href="#tosca.capabilities.Endpoint" >tosca.capabilities.Endpoint
+					<a href="#tosca.capabilities.Container" >tosca.capabilities.Container
 					</a>
 					<a href="#tosca.capabilities.Root" title="This is the default (root) TOSCA Capability Type definition that all other TOSCA Capability Types derive from.">tosca.capabilities.Root
 					</a>
@@ -382,10 +384,10 @@ table td {
 							<td class="table_data null_value" title="null">
 							</td>
 						</tr>
-						<tr class="table_row" id="custom.nodes.Compute_capabilities_feature">
-							<td class="table_data">feature
+						<tr class="table_row" id="custom.nodes.Compute_capabilities_host">
+							<td class="table_data">host
 							</td>
-							<td class="table_data">tosca.capabilities.Feature
+							<td class="table_data">tosca.capabilities.Container
 							</td>
 							<td class="table_data">tosca.nodes.Compute
 							</td>
@@ -629,10 +631,10 @@ table td {
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="table_row" id="tosca.nodes.Compute_capabilities_feature">
-								<td class="table_data">feature
+							<tr class="table_row" id="tosca.nodes.Compute_capabilities_host">
+								<td class="table_data">host
 								</td>
-								<td class="table_data">tosca.capabilities.Feature
+								<td class="table_data">tosca.capabilities.Container
 								</td>
 								<td class="table_data null_value" title="null">
 								</td>
@@ -707,6 +709,88 @@ table td {
 									<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
 									</td>
 									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<hr/>
+						<h2 id="tosca.nodes.SoftwareComponent">tosca.nodes.SoftwareComponent
+						</h2>
+						<div class="derived_from_hierarchy_tree">
+							<ul>
+								<li>
+									<a href="#tosca.nodes.Root" title="The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).">tosca.nodes.Root
+									</a>
+								</li>
+								<li>
+									<ul>
+										<li>tosca.nodes.SoftwareComponent
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<br/>
+						</div>
+						<h3 id="tosca.nodes.SoftwareComponent_attributes">Attributes
+						</h3>
+						<table>
+							<thead>
+								<tr class="table_row" >
+									<th class="table_header">Name
+									</th>
+									<th class="table_header">Required?
+									</th>
+									<th class="table_header">Type
+									</th>
+									<th class="table_header">Default
+									</th>
+									<th class="table_header">Description
+									</th>
+									<th class="table_header">Derived from
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table_row" id="tosca.nodes.SoftwareComponent_attributes_state">
+									<td class="table_data">state
+									</td>
+									<td class="table_data">true
+									</td>
+									<td class="table_data">string
+									</td>
+									<td class="table_data">initial
+									</td>
+									<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
+									</td>
+									<td class="table_data">tosca.nodes.Root
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.nodes.SoftwareComponent_attributes_tosca_id">
+									<td class="table_data">tosca_id
+									</td>
+									<td class="table_data">true
+									</td>
+									<td class="table_data">string
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table_data">A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.
+									</td>
+									<td class="table_data">tosca.nodes.Root
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.nodes.SoftwareComponent_attributes_tosca_name">
+									<td class="table_data">tosca_name
+									</td>
+									<td class="table_data">true
+									</td>
+									<td class="table_data">string
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
+									</td>
+									<td class="table_data">tosca.nodes.Root
 									</td>
 								</tr>
 							</tbody>
@@ -841,7 +925,7 @@ table td {
 						<h1 id="capability_types" class="entities_header">Capability Types
 						</h1>
 						<hr/>
-						<h2 id="tosca.capabilities.Endpoint">tosca.capabilities.Endpoint
+						<h2 id="tosca.capabilities.Container">tosca.capabilities.Container
 						</h2>
 						<div class="derived_from_hierarchy_tree">
 							<ul>
@@ -851,14 +935,14 @@ table td {
 								</li>
 								<li>
 									<ul>
-										<li>tosca.capabilities.Endpoint
+										<li>tosca.capabilities.Container
 										</li>
 									</ul>
 								</li>
 							</ul>
 							<br/>
 						</div>
-						<h3 id="tosca.capabilities.Endpoint_properties">Properties
+						<h3 id="tosca.capabilities.Container_properties">Properties
 						</h3>
 						<table>
 							<thead>
@@ -882,12 +966,12 @@ table td {
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table_row" id="tosca.capabilities.Endpoint_properties_port">
-									<td class="table_data">port
+								<tr class="table_row" id="tosca.capabilities.Container_properties_cpu_frequency">
+									<td class="table_data">cpu_frequency
 									</td>
 									<td class="table_data">false
 									</td>
-									<td class="table_data">integer
+									<td class="table_data">scalar-unit.frequency
 									</td>
 									<td class="table_data">supported
 									</td>
@@ -897,21 +981,63 @@ table td {
 									</td>
 									<td class="table.data">
 										<ul>
-											<li>greater_or_equal 1
-											</li>
-											<li>less_or_equal 65535
+											<li>greater_or_equal 0.1
 											</li>
 										</ul>
 									</td>
 									<td class="table_data null_value" title="null">
 									</td>
 								</tr>
-								<tr class="table_row" id="tosca.capabilities.Endpoint_properties_protocol">
-									<td class="table_data">protocol
+								<tr class="table_row" id="tosca.capabilities.Container_properties_disk_size">
+									<td class="table_data">disk_size
 									</td>
 									<td class="table_data">false
 									</td>
-									<td class="table_data">string
+									<td class="table_data">scalar-unit.size
+									</td>
+									<td class="table_data">supported
+									</td>
+									<td class="table_data">false
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table.data">
+										<ul>
+											<li>greater_or_equal 0
+											</li>
+										</ul>
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.capabilities.Container_properties_mem_size">
+									<td class="table_data">mem_size
+									</td>
+									<td class="table_data">false
+									</td>
+									<td class="table_data">scalar-unit.size
+									</td>
+									<td class="table_data">supported
+									</td>
+									<td class="table_data">false
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table.data">
+										<ul>
+											<li>greater_or_equal 0
+											</li>
+										</ul>
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.capabilities.Container_properties_num_cpus">
+									<td class="table_data">num_cpus
+									</td>
+									<td class="table_data">false
+									</td>
+									<td class="table_data">integer
 									</td>
 									<td class="table_data">supported
 									</td>
@@ -920,30 +1046,24 @@ table td {
 									<td class="table_data null_value" title="null">
 									</td>
 									<td class="table.data">
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-								</tr>
-								<tr class="table_row" id="tosca.capabilities.Endpoint_properties_secure">
-									<td class="table_data">secure
-									</td>
-									<td class="table_data">false
-									</td>
-									<td class="table_data">boolean
-									</td>
-									<td class="table_data">supported
-									</td>
-									<td class="table_data">false
-									</td>
-									<td class="table_data null_value" title="null">
-									</td>
-									<td class="table.data">
+										<ul>
+											<li>greater_or_equal 1
+											</li>
+										</ul>
 									</td>
 									<td class="table_data null_value" title="null">
 									</td>
 								</tr>
 							</tbody>
 						</table>
+						<h3 id="tosca.capabilities.Container_validSourceTypes">Valid Source Types
+						</h3>
+						<ul>
+							<li>
+								<a href="#tosca.nodes.SoftwareComponent" >tosca.nodes.SoftwareComponent
+								</a>
+							</li>
+						</ul>
 						<hr/>
 						<h2 id="tosca.capabilities.Root">tosca.capabilities.Root
 						</h2>

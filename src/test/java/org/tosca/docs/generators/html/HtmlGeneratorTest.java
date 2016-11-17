@@ -56,6 +56,7 @@ public class HtmlGeneratorTest {
                 createCustomNodesCompute(),
                 createToscaNodesRoot(),
                 createToscaNodesCompute(),
+                createToscaNodesSoftwareComponent(),
                 createEmptyNodeType()
         ));
         spec.setRelationshipTypes(ImmutableSet.of(
@@ -64,7 +65,7 @@ public class HtmlGeneratorTest {
         ));
         spec.setCapabilityTypes(ImmutableSet.of(
                 createToscaCapabilityRoot(),
-                createToscaCapabilityEndpoint()
+                createToscaCapabilityContainer()
         ));
 
         compareToscaSpecWithExpected(spec, "/expected_tosca_spec.html");
@@ -77,30 +78,49 @@ public class HtmlGeneratorTest {
 
     }
 
-    private CapabilityType createToscaCapabilityEndpoint() {
+    private CapabilityType createToscaCapabilityContainer() {
         return new CapabilityTypeImpl()
-                .setTypeUri("tosca.capabilities.Endpoint")
+                .setTypeUri("tosca.capabilities.Container")
                 .setDerivedFrom("tosca.capabilities.Root")
+                .setValidSourceTypes(ImmutableList.of(
+                        "tosca.nodes.SoftwareComponent"
+                ))
                 .setProperties(ImmutableList.<Property>of(
                         new PropertyImpl()
-                                .setName("protocol")
-                                .setType("string")
-                                .setDefaultValue("http"),
-                        new PropertyImpl()
-                                .setName("port")
-                                .setType("integer")
+                                .setName("num_cpus")
+                                .setType(Type.INTEGER.toString())
+                                .setDefaultValue("http")
                                 .setConstraints(ImmutableList.<Constraint>of(
                                         new ConstraintImpl()
                                                 .setOperator("greater_or_equal")
-                                                .setValue(1),
-                                        new ConstraintImpl()
-                                                .setOperator("less_or_equal")
-                                                .setValue(65535)
+                                                .setValue(1)
                                 )),
                         new PropertyImpl()
-                                .setName("secure")
-                                .setType("boolean")
+                                .setName("cpu_frequency")
+                                .setType("scalar-unit.frequency")
+                                .setConstraints(ImmutableList.<Constraint>of(
+                                        new ConstraintImpl()
+                                                .setOperator("greater_or_equal")
+                                                .setValue(0.1)
+                                )),
+                        new PropertyImpl()
+                                .setName("disk_size")
+                                .setType("scalar-unit.size")
                                 .setDefaultValue(false)
+                                .setConstraints(ImmutableList.<Constraint>of(
+                                        new ConstraintImpl()
+                                                .setOperator("greater_or_equal")
+                                                .setValue(0)
+                                )),
+                        new PropertyImpl()
+                                .setName("mem_size")
+                                .setType("scalar-unit.size")
+                                .setDefaultValue(false)
+                                .setConstraints(ImmutableList.<Constraint>of(
+                                        new ConstraintImpl()
+                                                .setOperator("greater_or_equal")
+                                                .setValue(0)
+                                ))
 
                 ));
     }
@@ -182,6 +202,12 @@ public class HtmlGeneratorTest {
         }
     }
 
+    private NodeType createToscaNodesSoftwareComponent() {
+        return new NodeTypeImpl()
+                .setTypeUri("tosca.nodes.SoftwareComponent")
+                .setDerivedFrom("tosca.nodes.Root");
+    }
+
     private NodeType createEmptyNodeType() {
         return new NodeTypeImpl()
                 .setTypeUri("test.nodes.Empty")
@@ -223,7 +249,7 @@ public class HtmlGeneratorTest {
                 .setDescription("The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) “server”.")
                 .setDerivedFrom("tosca.nodes.Root")
                 .setCapabilities(ImmutableList.<Capability>of(
-                        new CapabilityImpl("feature", "tosca.capabilities.Feature")
+                        new CapabilityImpl("host", "tosca.capabilities.Container")
                 ))
                 .setAttributes(ImmutableList.of(
                         new AttributeImpl()

@@ -25,4 +25,6 @@ public interface ToscaSpec {
     ToscaSpec setCapabilityTypes(Set<CapabilityType> capabilityTypes);
 
     <T> T getParent(T child);
+
+    <ET> ET getTypeByClassAndName(Class<ET> typeClass, String typeName);
 }

@@ -12,8 +12,10 @@ The generator tool requires the following inputs:
 
 This generates an HTML 5 document (which resembles a Javadoc document when using the default style).
 
-An example of a generated HTML can be found [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/ALU-CloudBand/tosca-docs-generator/master/src/test/resources/expected_tosca_spec.html?token=ABU651PQ8qU2BEPpzVQTKUXUGZbRZpfgks5YIZjZwA%3D%3D)
- 
+## Example
+An example of a generated HTML can be found [here](https://cdn.rawgit.com/ALU-CloudBand/tosca-docs-generator/master/src/test/resources/expected_tosca_spec.html)
+
+---
 
 ## Executing the tosca-docs-generator
 

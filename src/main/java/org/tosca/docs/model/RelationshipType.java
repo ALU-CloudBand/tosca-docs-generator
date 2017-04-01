@@ -10,5 +10,6 @@ public interface RelationshipType<T extends AbstractModelEntity> extends Abstrac
 
     @Override
     List<? extends Property> getProperties();
+    RelationshipType setInterfaces(List<? extends Interface> interfaces);
 
 }

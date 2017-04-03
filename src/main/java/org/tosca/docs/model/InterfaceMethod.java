@@ -1,7 +1,6 @@
 package org.tosca.docs.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.tosca.docs.model.impl.InterfaceImpl;
 import org.tosca.docs.model.impl.InterfaceMethodImpl;
 
 /**
@@ -11,12 +10,16 @@ import org.tosca.docs.model.impl.InterfaceMethodImpl;
 public interface InterfaceMethod extends  Comparable<InterfaceMethod>{
 
 
-     String getName();
-    String getDescription();
-    String getImplementation();
+    String getName();
 
     InterfaceMethod  setName(String name);
+
+    String getDescription();
+
     InterfaceMethod  setDescription(String description);
+
+    String getImplementation();
+
     InterfaceMethod  setImplementation(String implementation);
 
 

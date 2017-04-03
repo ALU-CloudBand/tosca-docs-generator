@@ -1,5 +1,7 @@
 package org.tosca.docs.generators.html;
 
+import com.google.common.collect.Table;
+import com.google.common.collect.TreeBasedTable;
 import com.googlecode.jatl.Html;
 import org.apache.commons.io.IOUtils;
 import org.tosca.docs.model.*;
@@ -481,32 +483,28 @@ public class HtmlGenerator {
                 .end(); // table
     }
 
-    protected void addInterfacesTable(InterfacesContainer container) {
+    private void buildInterfaceTable(InterfacesContainer source, InterfacesContainer current, Table<String, String, Feature<InterfaceMethod>> interfaceMethodsTable) {
+        if (spec.getParent(current) != null) {
+            buildInterfaceTable(source, spec.getParent(current), interfaceMethodsTable);
+        }
+        for (Interface interface_ : current.getInterfaces()) {
+            for (InterfaceMethod ifMethod : interface_.getMethods().values()) {
 
-        // Create list of interface operations based on implementation provided by each node.
-
-        List<Feature<Interface>> interfaces= new ArrayList<>();
-        InterfacesContainer current = container;
-
-        do {
-            for (Interface interface_ : current.getInterfaces()) {
-
-                interfaces.add(new Feature<>(
-                        interface_,
-                        current == container ? null : current.getId()
-                ));
-
+                interfaceMethodsTable.put(interface_.getName(), ifMethod.getName(), new Feature<InterfaceMethod>(ifMethod, current == source ? null : current.getId()));
             }
-            current = spec.getParent(current);
-        } while (current != null);
-        if (interfaces.isEmpty()) {
-            return;
         }
 
 
+    }
 
+    protected void addInterfacesTable(InterfacesContainer container) {
 
-
+        // Create list of interface operations based on implementation provided by each node.
+        Table<String, String, Feature<InterfaceMethod>> interfaceMethodsTable = TreeBasedTable.create();
+        buildInterfaceTable(container, container, interfaceMethodsTable);
+        if (interfaceMethodsTable.size() == 0) {
+            return;
+        }
         String tableId = container.getId() + "_interfaces";
         html.h3().id(tableId).text(localize("headers.interfaces")).end();
 
@@ -529,43 +527,22 @@ public class HtmlGenerator {
                 .end()
                 .tbody();
 
-        Collections.sort(interfaces);
 
-        //Filter  parents's interface method if its gets overridden by current node.
-        TreeMap<String,TreeMap<String,InterfaceMethod>> overridenFilteredMethodTable=new TreeMap<String,TreeMap<String,InterfaceMethod>>();
-        HashMap<String,String>  derivedFromDetails=new HashMap<String,String>();
-        for (Feature<Interface> feature : interfaces) {
-            Interface anInterface = feature.object;
-            Map<String,InterfaceMethod>  anInterfaceMethods=anInterface.getMethods();
-
-            if(overridenFilteredMethodTable.get(anInterface.getName())==null) {
-                overridenFilteredMethodTable.put(anInterface.getName(), new TreeMap<String, InterfaceMethod>());
-            }
-            for(InterfaceMethod anInterfaceMethod: anInterfaceMethods.values()) {
-                if(overridenFilteredMethodTable.get(anInterface.getName()).get(anInterfaceMethod.getName())!=null){
-                    if(feature.derivedFrom==null) {
-                        overridenFilteredMethodTable.get(anInterface.getName()).put(anInterfaceMethod.getName(), anInterfaceMethod);
-                    }
-                }else{
-                    overridenFilteredMethodTable.get(anInterface.getName()).put(anInterfaceMethod.getName(),anInterfaceMethod);
-                    if(feature.derivedFrom!=null){
-                        derivedFromDetails.put(anInterface.getName()+anInterfaceMethod.getName(),feature.derivedFrom);
-                    }
-                }
-            }
-        }
-        for (String interfaceName: overridenFilteredMethodTable.keySet()) {
-            TreeMap<String,InterfaceMethod>  anInterfaceMethods=overridenFilteredMethodTable.get(interfaceName);
-            for(InterfaceMethod anInterfaceMethod:  anInterfaceMethods.values()) {
-                addTableRow(tableId + "_" + interfaceName+"_"+anInterfaceMethod.getName());
+        for (String interfaceName : interfaceMethodsTable.rowKeySet()) {
+            Map<String, Feature<InterfaceMethod>> interfaceMethods = interfaceMethodsTable.row(interfaceName);
+            for (String operationName : interfaceMethods.keySet()) {
+                Feature<InterfaceMethod> interfaceMethodFeature = interfaceMethods.get(operationName);
+                addTableRow(tableId + "_" + interfaceName + "_" + interfaceMethodFeature.object.getName());
                 addTableData(interfaceName);
-                addTableData(anInterfaceMethod.getName());
-                addTableData(anInterfaceMethod.getImplementation());
-                addTableData(anInterfaceMethod.getDescription());
-                addTableData(derivedFromDetails.get(interfaceName+anInterfaceMethod.getName()));
-                html.end(); // tr
+                addTableData(interfaceMethodFeature.object.getName());
+                addTableData(interfaceMethodFeature.object.getImplementation());
+                addTableData(interfaceMethodFeature.object.getDescription());
+                addTableData(interfaceMethodFeature.derivedFrom);
+                html.end();
             }
+
         }
+
         html
                 .end() // tbody
                 .end(); // table

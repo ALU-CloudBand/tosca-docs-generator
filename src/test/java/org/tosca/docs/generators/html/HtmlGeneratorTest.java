@@ -29,8 +29,9 @@ public class HtmlGeneratorTest {
      *
      * @throws IOException if exception occurred reading the expected HTML file or sending the HTTP request to the validator
      */
-    //@Test
+    @Test
     public void validateHtml() throws IOException {
+
         String expectedHtml;
         try (InputStream expectedInputStream = HtmlGeneratorTest.class.getResourceAsStream("/expected_tosca_spec.html")) {
             expectedHtml = IOUtils.toString(expectedInputStream, Charset.defaultCharset());
@@ -41,7 +42,7 @@ public class HtmlGeneratorTest {
                 .addTextBody("content", expectedHtml)
                 .build();
 
-        Content content = Request.Post("https://validator.w3.org/nu/")
+        Content content = Request.Post("https://validator.w3.org/nu")
                 .body(entity)
                 .execute()
                 .returnContent();

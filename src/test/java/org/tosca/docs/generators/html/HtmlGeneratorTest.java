@@ -42,7 +42,7 @@ public class HtmlGeneratorTest {
                 .addTextBody("content", expectedHtml)
                 .build();
 
-        Content content = Request.Post("https://validator.w3.org/nu")
+        Content content = Request.Post("https://validator.w3.org/nu/")
                 .body(entity)
                 .execute()
                 .returnContent();

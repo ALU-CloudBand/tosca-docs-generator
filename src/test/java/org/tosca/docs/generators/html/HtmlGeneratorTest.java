@@ -29,7 +29,7 @@ public class HtmlGeneratorTest {
      *
      * @throws IOException if exception occurred reading the expected HTML file or sending the HTTP request to the validator
      */
-    //@Test
+    @Test
     public void validateHtml() throws IOException {
 
         String expectedHtml;

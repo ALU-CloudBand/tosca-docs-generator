@@ -11,4 +11,5 @@ public interface NodeType<T extends AbstractModelEntity> extends AbstractModelEn
     NodeType setAttributes(List<? extends Attribute> attributes);
 
     NodeType setCapabilities(List<Capability> capabilities);
+    NodeType setInterfaces(List<? extends Interface> interfaces);
 }

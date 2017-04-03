@@ -394,6 +394,74 @@ table td {
 						</tr>
 					</tbody>
 				</table>
+				<h3 id="custom.nodes.Compute_interfaces">Interfaces
+				</h3>
+				<table>
+					<thead>
+						<tr class="table_row" >
+							<th class="table_header">Name
+							</th>
+							<th class="table_header">Operations
+							</th>
+							<th class="table_header">Implementation
+							</th>
+							<th class="table_header">Description
+							</th>
+							<th class="table_header">Derived from
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="table_row" id="custom.nodes.Compute_interfaces_tosca.interfaces.node.lifecycle.Standard_configure">
+							<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+							</td>
+							<td class="table_data">configure
+							</td>
+							<td class="table_data">configure_impl
+							</td>
+							<td class="table_data">Description for configure operation
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.Compute_interfaces_tosca.interfaces.node.lifecycle.Standard_create">
+							<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+							</td>
+							<td class="table_data">create
+							</td>
+							<td class="table_data">create_customized_impl
+							</td>
+							<td class="table_data">Description for create operation
+							</td>
+							<td class="table_data">tosca.nodes.Compute
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.Compute_interfaces_tosca.interfaces.node.lifecycle.Standard_delete">
+							<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+							</td>
+							<td class="table_data">delete
+							</td>
+							<td class="table_data">delete_impl
+							</td>
+							<td class="table_data">Description for delete operation
+							</td>
+							<td class="table_data">tosca.nodes.Compute
+							</td>
+						</tr>
+						<tr class="table_row" id="custom.nodes.Compute_interfaces_tosca.interfaces.node.lifecycle.Standard_stop">
+							<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+							</td>
+							<td class="table_data">stop
+							</td>
+							<td class="table_data">stop_customized_impl
+							</td>
+							<td class="table_data">Description for stop operation
+							</td>
+							<td class="table_data null_value" title="null">
+							</td>
+						</tr>
+					</tbody>
+				</table>
 				<hr/>
 				<h2 id="test.nodes.Empty">test.nodes.Empty
 				</h2>
@@ -470,6 +538,50 @@ table td {
 							<td class="table_data null_value" title="null">
 							</td>
 							<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<h3 id="test.nodes.Empty_interfaces">Interfaces
+				</h3>
+				<table>
+					<thead>
+						<tr class="table_row" >
+							<th class="table_header">Name
+							</th>
+							<th class="table_header">Operations
+							</th>
+							<th class="table_header">Implementation
+							</th>
+							<th class="table_header">Description
+							</th>
+							<th class="table_header">Derived from
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="table_row" id="test.nodes.Empty_interfaces_tosca.interfaces.node.lifecycle.Standard_configure">
+							<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+							</td>
+							<td class="table_data">configure
+							</td>
+							<td class="table_data">configure_impl
+							</td>
+							<td class="table_data">Description for configure operation
+							</td>
+							<td class="table_data">tosca.nodes.Root
+							</td>
+						</tr>
+						<tr class="table_row" id="test.nodes.Empty_interfaces_tosca.interfaces.node.lifecycle.Standard_create">
+							<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+							</td>
+							<td class="table_data">create
+							</td>
+							<td class="table_data">create_impl
+							</td>
+							<td class="table_data">Description for create operation
 							</td>
 							<td class="table_data">tosca.nodes.Root
 							</td>
@@ -641,6 +753,62 @@ table td {
 							</tr>
 						</tbody>
 					</table>
+					<h3 id="tosca.nodes.Compute_interfaces">Interfaces
+					</h3>
+					<table>
+						<thead>
+							<tr class="table_row" >
+								<th class="table_header">Name
+								</th>
+								<th class="table_header">Operations
+								</th>
+								<th class="table_header">Implementation
+								</th>
+								<th class="table_header">Description
+								</th>
+								<th class="table_header">Derived from
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="table_row" id="tosca.nodes.Compute_interfaces_tosca.interfaces.node.lifecycle.Standard_configure">
+								<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+								</td>
+								<td class="table_data">configure
+								</td>
+								<td class="table_data">configure_impl
+								</td>
+								<td class="table_data">Description for configure operation
+								</td>
+								<td class="table_data">tosca.nodes.Root
+								</td>
+							</tr>
+							<tr class="table_row" id="tosca.nodes.Compute_interfaces_tosca.interfaces.node.lifecycle.Standard_create">
+								<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+								</td>
+								<td class="table_data">create
+								</td>
+								<td class="table_data">create_customized_impl
+								</td>
+								<td class="table_data">Description for create operation
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+							</tr>
+							<tr class="table_row" id="tosca.nodes.Compute_interfaces_tosca.interfaces.node.lifecycle.Standard_delete">
+								<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+								</td>
+								<td class="table_data">delete
+								</td>
+								<td class="table_data">delete_impl
+								</td>
+								<td class="table_data">Description for delete operation
+								</td>
+								<td class="table_data null_value" title="null">
+								</td>
+							</tr>
+						</tbody>
+					</table>
 					<hr/>
 					<h2 id="tosca.nodes.Root">tosca.nodes.Root
 					</h2>
@@ -707,6 +875,50 @@ table td {
 									<td class="table_data null_value" title="null">
 									</td>
 									<td class="table_data">This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<h3 id="tosca.nodes.Root_interfaces">Interfaces
+						</h3>
+						<table>
+							<thead>
+								<tr class="table_row" >
+									<th class="table_header">Name
+									</th>
+									<th class="table_header">Operations
+									</th>
+									<th class="table_header">Implementation
+									</th>
+									<th class="table_header">Description
+									</th>
+									<th class="table_header">Derived from
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table_row" id="tosca.nodes.Root_interfaces_tosca.interfaces.node.lifecycle.Standard_configure">
+									<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+									</td>
+									<td class="table_data">configure
+									</td>
+									<td class="table_data">configure_impl
+									</td>
+									<td class="table_data">Description for configure operation
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.nodes.Root_interfaces_tosca.interfaces.node.lifecycle.Standard_create">
+									<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+									</td>
+									<td class="table_data">create
+									</td>
+									<td class="table_data">create_impl
+									</td>
+									<td class="table_data">Description for create operation
 									</td>
 									<td class="table_data null_value" title="null">
 									</td>
@@ -795,6 +1007,50 @@ table td {
 								</tr>
 							</tbody>
 						</table>
+						<h3 id="tosca.nodes.SoftwareComponent_interfaces">Interfaces
+						</h3>
+						<table>
+							<thead>
+								<tr class="table_row" >
+									<th class="table_header">Name
+									</th>
+									<th class="table_header">Operations
+									</th>
+									<th class="table_header">Implementation
+									</th>
+									<th class="table_header">Description
+									</th>
+									<th class="table_header">Derived from
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table_row" id="tosca.nodes.SoftwareComponent_interfaces_tosca.interfaces.node.lifecycle.Standard_configure">
+									<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+									</td>
+									<td class="table_data">configure
+									</td>
+									<td class="table_data">configure_impl
+									</td>
+									<td class="table_data">Description for configure operation
+									</td>
+									<td class="table_data">tosca.nodes.Root
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.nodes.SoftwareComponent_interfaces_tosca.interfaces.node.lifecycle.Standard_create">
+									<td class="table_data">tosca.interfaces.node.lifecycle.Standard
+									</td>
+									<td class="table_data">create
+									</td>
+									<td class="table_data">create_impl
+									</td>
+									<td class="table_data">Description for create operation
+									</td>
+									<td class="table_data">tosca.nodes.Root
+									</td>
+								</tr>
+							</tbody>
+						</table>
 						<hr/>
 						<h1 id="relationship_types" class="entities_header">Relationship Types
 						</h1>
@@ -866,6 +1122,50 @@ table td {
 								</tr>
 							</tbody>
 						</table>
+						<h3 id="test.relationships.Empty_interfaces">Interfaces
+						</h3>
+						<table>
+							<thead>
+								<tr class="table_row" >
+									<th class="table_header">Name
+									</th>
+									<th class="table_header">Operations
+									</th>
+									<th class="table_header">Implementation
+									</th>
+									<th class="table_header">Description
+									</th>
+									<th class="table_header">Derived from
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table_row" id="test.relationships.Empty_interfaces_tosca.interfaces.relationship.Configure_pre_configure_source">
+									<td class="table_data">tosca.interfaces.relationship.Configure
+									</td>
+									<td class="table_data">pre_configure_source
+									</td>
+									<td class="table_data">pre_configure_source_impl
+									</td>
+									<td class="table_data">Operation to pre-configure the source endpoint
+									</td>
+									<td class="table_data">tosca.relationships.Root
+									</td>
+								</tr>
+								<tr class="table_row" id="test.relationships.Empty_interfaces_tosca.interfaces.relationship.Configure_pre_configure_target">
+									<td class="table_data">tosca.interfaces.relationship.Configure
+									</td>
+									<td class="table_data">pre_configure_target
+									</td>
+									<td class="table_data">pre_configure_target_impl
+									</td>
+									<td class="table_data">Operation to pre-configure the target endpoint
+									</td>
+									<td class="table_data">tosca.relationships.Root
+									</td>
+								</tr>
+							</tbody>
+						</table>
 						<hr/>
 						<h2 id="tosca.relationships.Root">tosca.relationships.Root
 						</h2>
@@ -915,6 +1215,50 @@ table td {
 									<td class="table_data null_value" title="null">
 									</td>
 									<td class="table_data null_value" title="null">
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<h3 id="tosca.relationships.Root_interfaces">Interfaces
+						</h3>
+						<table>
+							<thead>
+								<tr class="table_row" >
+									<th class="table_header">Name
+									</th>
+									<th class="table_header">Operations
+									</th>
+									<th class="table_header">Implementation
+									</th>
+									<th class="table_header">Description
+									</th>
+									<th class="table_header">Derived from
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table_row" id="tosca.relationships.Root_interfaces_tosca.interfaces.relationship.Configure_pre_configure_source">
+									<td class="table_data">tosca.interfaces.relationship.Configure
+									</td>
+									<td class="table_data">pre_configure_source
+									</td>
+									<td class="table_data">pre_configure_source_impl
+									</td>
+									<td class="table_data">Operation to pre-configure the source endpoint
+									</td>
+									<td class="table_data null_value" title="null">
+									</td>
+								</tr>
+								<tr class="table_row" id="tosca.relationships.Root_interfaces_tosca.interfaces.relationship.Configure_pre_configure_target">
+									<td class="table_data">tosca.interfaces.relationship.Configure
+									</td>
+									<td class="table_data">pre_configure_target
+									</td>
+									<td class="table_data">pre_configure_target_impl
+									</td>
+									<td class="table_data">Operation to pre-configure the target endpoint
 									</td>
 									<td class="table_data null_value" title="null">
 									</td>

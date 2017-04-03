@@ -2,6 +2,7 @@ package org.tosca.docs.model.impl;
 
 import org.tosca.docs.model.AbstractModelEntity;
 import org.tosca.docs.model.Attribute;
+import org.tosca.docs.model.Interface;
 import org.tosca.docs.model.Property;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public abstract class AbstractModelEntityImpl<T extends AbstractModelEntityImpl>
     private String description;
     private List<? extends Property> properties = new ArrayList<>(0);
     private List<? extends Attribute> attributes = new ArrayList<>(0);
+    private List<? extends Interface> interfaces=new ArrayList<>(0);
     private String derivedFrom;
 
     /**
@@ -132,6 +134,15 @@ public abstract class AbstractModelEntityImpl<T extends AbstractModelEntityImpl>
     @Override
     public String getDerivedFrom() {
         return derivedFrom;
+    }
+
+    public T setInterfaces(List<? extends Interface> interfaces) {
+        this.interfaces = interfaces;
+        return (T) this;
+    }
+
+    public List<? extends Interface> getInterfaces() {
+        return interfaces;
     }
 
     /**

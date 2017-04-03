@@ -34,6 +34,7 @@ public class HtmlRelationshipTypeGenerator extends HtmlGenerator {
         addPropertiesTable(relationshipType);
 
         addAttributesTable(relationshipType);
+        addInterfacesTable(relationshipType);
 
         html.hr();
     }

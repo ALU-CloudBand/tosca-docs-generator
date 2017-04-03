@@ -37,6 +37,8 @@ public class HtmlNodeTypeGenerator extends HtmlGenerator {
 
         addCapabilitiesTable(nodeType);
 
+        addInterfacesTable(nodeType);
+
         html.hr();
     }
 }

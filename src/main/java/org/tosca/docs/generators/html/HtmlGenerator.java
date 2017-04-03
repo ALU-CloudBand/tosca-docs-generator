@@ -1,5 +1,7 @@
 package org.tosca.docs.generators.html;
 
+import com.google.common.collect.Table;
+import com.google.common.collect.TreeBasedTable;
 import com.googlecode.jatl.Html;
 import org.apache.commons.io.IOUtils;
 import org.tosca.docs.model.*;
@@ -480,6 +482,74 @@ public class HtmlGenerator {
                 .end() // tbody
                 .end(); // table
     }
+
+    private void buildInterfaceTable(InterfacesContainer source, InterfacesContainer current, Table<String, String, Feature<InterfaceMethod>> interfaceMethodsTable) {
+        if (spec.getParent(current) != null) {
+            buildInterfaceTable(source, spec.getParent(current), interfaceMethodsTable);
+        }
+        for (Interface interface_ : current.getInterfaces()) {
+            for (InterfaceMethod ifMethod : interface_.getMethods().values()) {
+
+                interfaceMethodsTable.put(interface_.getName(), ifMethod.getName(), new Feature<InterfaceMethod>(ifMethod, current == source ? null : current.getId()));
+            }
+        }
+
+
+    }
+
+    protected void addInterfacesTable(InterfacesContainer container) {
+
+        // Create list of interface operations based on implementation provided by each node.
+        Table<String, String, Feature<InterfaceMethod>> interfaceMethodsTable = TreeBasedTable.create();
+        buildInterfaceTable(container, container, interfaceMethodsTable);
+        if (interfaceMethodsTable.size() == 0) {
+            return;
+        }
+        String tableId = container.getId() + "_interfaces";
+        html.h3().id(tableId).text(localize("headers.interfaces")).end();
+
+        html
+                .table()
+                .thead();
+
+        addTableRow();
+
+        addTableHeader("feature.name");
+        addTableHeader("feature.method");
+        addTableHeader("feature.implementation");
+        addTableHeader("feature.description");
+        addTableHeader("feature.derivedFrom");
+
+
+
+        html
+                .end()
+                .end()
+                .tbody();
+
+
+        for (String interfaceName : interfaceMethodsTable.rowKeySet()) {
+            Map<String, Feature<InterfaceMethod>> interfaceMethods = interfaceMethodsTable.row(interfaceName);
+            for (String operationName : interfaceMethods.keySet()) {
+                Feature<InterfaceMethod> interfaceMethodFeature = interfaceMethods.get(operationName);
+                addTableRow(tableId + "_" + interfaceName + "_" + interfaceMethodFeature.object.getName());
+                addTableData(interfaceName);
+                addTableData(interfaceMethodFeature.object.getName());
+                addTableData(interfaceMethodFeature.object.getImplementation());
+                addTableData(interfaceMethodFeature.object.getDescription());
+                addTableData(interfaceMethodFeature.derivedFrom);
+                html.end();
+            }
+
+        }
+
+        html
+                .end() // tbody
+                .end(); // table
+    }
+
+
+
 
     protected void addTableRow() {
         addTableRow(null);

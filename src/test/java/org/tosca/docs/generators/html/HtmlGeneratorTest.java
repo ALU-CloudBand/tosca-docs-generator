@@ -55,9 +55,34 @@ public class HtmlGeneratorTest {
         }
     }
 
+    /**
+     * Compare the JSON generated from the up-to-date ToscaSpec class against an example file.
+     * <br/>
+     * This method is not a real test but this will make sure that we always have a correct example file
+     * that shows how a TOSCA spec JSON should look like.
+     *
+     * @throws IOException in case exception reading the example file.
+     */
+    @Test
+    public void ensureToscaSpecExampleIsUpToDate() throws IOException {
+        ToscaSpec spec = createFullToscaSpec();
+        String specAsJson = ToscaSpecImpl.OBJECT_MAPPER.writeValueAsString(spec);
+        // The file name extension is "example" and not "json" to prevent the IDE from reformatting the file
+        // and break the comparison
+        try (InputStream expectedStream = HtmlGeneratorTest.class.getResourceAsStream("/tosca_spec.json.example")) {
+            Assert.assertEquals(IOUtils.toString(expectedStream, Charset.defaultCharset()).trim(), specAsJson.trim());
+        }
+    }
+
     @Test
     public void testToscaSpec() throws IOException {
 
+        ToscaSpec spec = createFullToscaSpec();
+
+        compareToscaSpecWithExpected(spec, "/expected_tosca_spec.html");
+    }
+
+    private ToscaSpec createFullToscaSpec() {
         ToscaSpec spec = new ToscaSpecImpl();
         spec.setNodeTypes(ImmutableSet.of(
                 createCustomNodesCompute(),
@@ -74,8 +99,7 @@ public class HtmlGeneratorTest {
                 createToscaCapabilityRoot(),
                 createToscaCapabilityContainer()
         ));
-
-        compareToscaSpecWithExpected(spec, "/expected_tosca_spec.html");
+        return spec;
     }
 
     private CapabilityType createToscaCapabilityRoot() {
@@ -147,12 +171,12 @@ public class HtmlGeneratorTest {
                 ))
                 .setInterfaces(ImmutableList.of(
                         new InterfaceImpl().setMethods(ImmutableMap.of(
-                                new String("pre_configure_source"),
+                                "pre_configure_source",
                                 new InterfaceMethodImpl()
                                         .setName("pre_configure_source")
                                         .setDescription("Operation to pre-configure the source endpoint")
                                         .setImplementation("pre_configure_source_impl"),
-                                new String("pre_configure_target"),
+                                "pre_configure_target",
                                 new InterfaceMethodImpl()
                                         .setName("pre_configure_target")
                                         .setDescription("Operation to pre-configure the target endpoint")
@@ -292,12 +316,12 @@ public class HtmlGeneratorTest {
                 )
                 .setInterfaces(ImmutableList.of(
                         new InterfaceImpl().setMethods(ImmutableMap.of(
-                                new String("create"),
+                                "create",
                                 new InterfaceMethodImpl()
                                         .setName("create")
                                         .setDescription("Description for create operation")
                                         .setImplementation("create_impl"),
-                                new String("configure"),
+                                "configure",
                                 new InterfaceMethodImpl()
                                         .setName("configure")
                                         .setDescription("Description for configure operation")
@@ -347,12 +371,12 @@ public class HtmlGeneratorTest {
                 )
                 .setInterfaces(ImmutableList.of(
                         new InterfaceImpl().setMethods(ImmutableMap.of(
-                                new String("create"),
+                                "create",
                                 new InterfaceMethodImpl()
                                         .setName("create")
                                         .setDescription("Description for create operation")
                                         .setImplementation("create_customized_impl"),
-                                new String("delete"),
+                                "delete",
                                 new InterfaceMethodImpl()
                                         .setName("delete")
                                         .setDescription("Description for delete operation")
@@ -379,7 +403,7 @@ public class HtmlGeneratorTest {
                 ))
                 .setInterfaces(ImmutableList.of(
                         new InterfaceImpl().setMethods(ImmutableMap.of(
-                                new String("stop"),
+                                "stop",
                                 new InterfaceMethodImpl()
                                         .setName("stop")
                                         .setDescription("Description for stop operation")

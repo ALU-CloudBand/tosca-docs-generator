@@ -1,0 +1,280 @@
+{
+  "title" : null,
+  "nodeTypes" : [ {
+    "extensions" : { },
+    "shorthandName" : "CustomVnf",
+    "typeQualifiedName" : "TypeQualifiedName",
+    "typeUri" : "custom.nodes.Compute",
+    "description" : null,
+    "properties" : [ {
+      "extensions" : { },
+      "name" : "custom_prop",
+      "required" : false,
+      "type" : "string",
+      "description" : null,
+      "constraints" : [ ],
+      "status" : "supported",
+      "default" : null
+    } ],
+    "attributes" : [ ],
+    "interfaces" : [ {
+      "name" : "tosca.interfaces.node.lifecycle.Standard",
+      "methods" : {
+        "stop" : {
+          "description" : "Description for stop operation",
+          "implementation" : "stop_customized_impl",
+          "name" : "stop"
+        }
+      }
+    } ],
+    "derivedFrom" : "tosca.nodes.Compute",
+    "capabilities" : [ {
+      "name" : "dependable",
+      "type" : "tosca.capabilities.Dependable"
+    } ]
+  }, {
+    "extensions" : { },
+    "shorthandName" : null,
+    "typeQualifiedName" : null,
+    "typeUri" : "tosca.nodes.Root",
+    "description" : "The TOSCA Root Node Type is the default type that all other TOSCA base Node Types derive from.  This allows for all TOSCA nodes to have a consistent set of features for modeling and management (e.g., consistent definitions for requirements, capabilities and lifecycle interfaces).",
+    "properties" : [ ],
+    "attributes" : [ {
+      "extensions" : { },
+      "name" : "tosca_id",
+      "required" : true,
+      "type" : "string",
+      "description" : "A unique identifier of the realized instance of a Node Template that derives from any TOSCA normative type.",
+      "default" : null
+    }, {
+      "extensions" : { },
+      "name" : "tosca_name",
+      "required" : true,
+      "type" : "string",
+      "description" : "This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.",
+      "default" : null
+    }, {
+      "extensions" : { },
+      "name" : "state",
+      "required" : true,
+      "type" : "string",
+      "description" : "This attribute reflects the name of the Node Template as defined in the TOSCA service template.  This name is not unique to the realized instance model of corresponding deployed application as each template in the model can result in one or more instances (e.g., scaled) when orchestrated to a provider environment.",
+      "default" : "initial"
+    } ],
+    "interfaces" : [ {
+      "name" : "tosca.interfaces.node.lifecycle.Standard",
+      "methods" : {
+        "create" : {
+          "description" : "Description for create operation",
+          "implementation" : "create_impl",
+          "name" : "create"
+        },
+        "configure" : {
+          "description" : "Description for configure operation",
+          "implementation" : "configure_impl",
+          "name" : "configure"
+        }
+      }
+    } ],
+    "derivedFrom" : null,
+    "capabilities" : [ ]
+  }, {
+    "extensions" : { },
+    "shorthandName" : null,
+    "typeQualifiedName" : null,
+    "typeUri" : "tosca.nodes.Compute",
+    "description" : "The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) “server”.",
+    "properties" : [ ],
+    "attributes" : [ {
+      "extensions" : { },
+      "name" : "private_address",
+      "required" : true,
+      "type" : "string",
+      "description" : "Private IP address",
+      "default" : null
+    }, {
+      "extensions" : { },
+      "name" : "public_address",
+      "required" : false,
+      "type" : "string",
+      "description" : "Public IP address",
+      "default" : null
+    }, {
+      "extensions" : { },
+      "name" : "networks",
+      "required" : true,
+      "type" : "map",
+      "description" : null,
+      "default" : null
+    }, {
+      "extensions" : { },
+      "name" : "ports",
+      "required" : true,
+      "type" : "map",
+      "description" : null,
+      "default" : null
+    } ],
+    "interfaces" : [ {
+      "name" : "tosca.interfaces.node.lifecycle.Standard",
+      "methods" : {
+        "create" : {
+          "description" : "Description for create operation",
+          "implementation" : "create_customized_impl",
+          "name" : "create"
+        },
+        "delete" : {
+          "description" : "Description for delete operation",
+          "implementation" : "delete_impl",
+          "name" : "delete"
+        }
+      }
+    } ],
+    "derivedFrom" : "tosca.nodes.Root",
+    "capabilities" : [ {
+      "name" : "host",
+      "type" : "tosca.capabilities.Container"
+    } ]
+  }, {
+    "extensions" : { },
+    "shorthandName" : null,
+    "typeQualifiedName" : null,
+    "typeUri" : "tosca.nodes.SoftwareComponent",
+    "description" : null,
+    "properties" : [ ],
+    "attributes" : [ ],
+    "interfaces" : [ ],
+    "derivedFrom" : "tosca.nodes.Root",
+    "capabilities" : [ ]
+  }, {
+    "extensions" : { },
+    "shorthandName" : null,
+    "typeQualifiedName" : null,
+    "typeUri" : "test.nodes.Empty",
+    "description" : null,
+    "properties" : [ ],
+    "attributes" : [ ],
+    "interfaces" : [ ],
+    "derivedFrom" : "tosca.nodes.Root",
+    "capabilities" : [ ]
+  } ],
+  "relationshipTypes" : [ {
+    "extensions" : { },
+    "shorthandName" : null,
+    "typeQualifiedName" : null,
+    "typeUri" : "tosca.relationships.Root",
+    "description" : null,
+    "properties" : [ ],
+    "attributes" : [ {
+      "extensions" : { },
+      "name" : "tosca_id",
+      "required" : true,
+      "type" : "string",
+      "description" : null,
+      "default" : null
+    }, {
+      "extensions" : { },
+      "name" : "tosca_name",
+      "required" : true,
+      "type" : "string",
+      "description" : null,
+      "default" : null
+    } ],
+    "interfaces" : [ {
+      "name" : "tosca.interfaces.relationship.Configure",
+      "methods" : {
+        "pre_configure_source" : {
+          "description" : "Operation to pre-configure the source endpoint",
+          "implementation" : "pre_configure_source_impl",
+          "name" : "pre_configure_source"
+        },
+        "pre_configure_target" : {
+          "description" : "Operation to pre-configure the target endpoint",
+          "implementation" : "pre_configure_target_impl",
+          "name" : "pre_configure_target"
+        }
+      }
+    } ],
+    "derivedFrom" : null
+  }, {
+    "extensions" : { },
+    "shorthandName" : null,
+    "typeQualifiedName" : null,
+    "typeUri" : "test.relationships.Empty",
+    "description" : null,
+    "properties" : [ ],
+    "attributes" : [ ],
+    "interfaces" : [ ],
+    "derivedFrom" : "tosca.relationships.Root"
+  } ],
+  "capabilityTypes" : [ {
+    "extensions" : { },
+    "shorthandName" : null,
+    "typeQualifiedName" : null,
+    "typeUri" : "tosca.capabilities.Root",
+    "description" : "This is the default (root) TOSCA Capability Type definition that all other TOSCA Capability Types derive from.",
+    "properties" : [ ],
+    "attributes" : [ ],
+    "interfaces" : [ ],
+    "derivedFrom" : null,
+    "validSourceTypes" : [ ]
+  }, {
+    "extensions" : { },
+    "shorthandName" : null,
+    "typeQualifiedName" : null,
+    "typeUri" : "tosca.capabilities.Container",
+    "description" : null,
+    "properties" : [ {
+      "extensions" : { },
+      "name" : "num_cpus",
+      "required" : false,
+      "type" : "integer",
+      "description" : null,
+      "constraints" : [ {
+        "value" : 1,
+        "operator" : "greater_or_equal"
+      } ],
+      "status" : "supported",
+      "default" : "http"
+    }, {
+      "extensions" : { },
+      "name" : "cpu_frequency",
+      "required" : false,
+      "type" : "scalar-unit.frequency",
+      "description" : null,
+      "constraints" : [ {
+        "value" : 0.1,
+        "operator" : "greater_or_equal"
+      } ],
+      "status" : "supported",
+      "default" : null
+    }, {
+      "extensions" : { },
+      "name" : "disk_size",
+      "required" : false,
+      "type" : "scalar-unit.size",
+      "description" : null,
+      "constraints" : [ {
+        "value" : 0,
+        "operator" : "greater_or_equal"
+      } ],
+      "status" : "supported",
+      "default" : false
+    }, {
+      "extensions" : { },
+      "name" : "mem_size",
+      "required" : false,
+      "type" : "scalar-unit.size",
+      "description" : null,
+      "constraints" : [ {
+        "value" : 0,
+        "operator" : "greater_or_equal"
+      } ],
+      "status" : "supported",
+      "default" : false
+    } ],
+    "attributes" : [ ],
+    "interfaces" : [ ],
+    "derivedFrom" : "tosca.capabilities.Root",
+    "validSourceTypes" : [ "tosca.nodes.SoftwareComponent" ]
+  } ]
+}

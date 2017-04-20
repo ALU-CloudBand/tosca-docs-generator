@@ -6,7 +6,7 @@ Generates TOSCA documentation for the various TOSCA entities (Node types, Relati
 
 The generator tool requires the following inputs:
 
-1. TOSCA spec in JSON format
+1. TOSCA spec in JSON format (An example TOSCA spec JSON file [tosca_spec.json.example](https://rawgit.com/ALU-CloudBand/tosca-docs-generator/master/src/test/resources/tosca_spec.json.example))
 2. Internalization (i18n) messages file (Optional. Defaults to [messages.properties](https://github.com/ALU-CloudBand/tosca-docs-generator/blob/master/src/main/resources/org/tosca/docs/messages.properties))
 3. CSS style file (Optional. Defaults to [default.css](https://github.com/ALU-CloudBand/tosca-docs-generator/blob/master/src/main/resources/org/tosca/docs/default.css))
 

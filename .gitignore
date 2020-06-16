@@ -14,6 +14,8 @@ hs_err_pid*
 .idea/misc.xml
 .idea/modules.xml
 .idea/workspace.xml
+.idea/jarRepositories.xml
+.idea/sonarlint
 target/
 tosca-docs-generator.iml
 docs-generator.iml

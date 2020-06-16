@@ -1,3 +1,5 @@
+![Java CI with Maven](https://github.com/ALU-CloudBand/tosca-docs-generator/workflows/Java%20CI%20with%20Maven/badge.svg)
+
 # tosca-docs-generator
 
 TOSCA Documents Generator

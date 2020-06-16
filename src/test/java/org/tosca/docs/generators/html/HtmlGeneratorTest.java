@@ -3,6 +3,14 @@ package org.tosca.docs.generators.html;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.util.Locale;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.fluent.Content;
@@ -12,22 +20,38 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.tosca.docs.model.*;
-import org.tosca.docs.model.impl.*;
+import org.tosca.docs.model.CapabilityType;
+import org.tosca.docs.model.Constraint;
+import org.tosca.docs.model.NodeType;
+import org.tosca.docs.model.Property;
+import org.tosca.docs.model.RelationshipType;
+import org.tosca.docs.model.ToscaSpec;
+import org.tosca.docs.model.Type;
+import org.tosca.docs.model.impl.AttributeImpl;
+import org.tosca.docs.model.impl.CapabilityImpl;
+import org.tosca.docs.model.impl.CapabilityTypeImpl;
+import org.tosca.docs.model.impl.ConstraintImpl;
+import org.tosca.docs.model.impl.InterfaceImpl;
+import org.tosca.docs.model.impl.InterfaceMethodImpl;
+import org.tosca.docs.model.impl.NodeTypeImpl;
+import org.tosca.docs.model.impl.PropertyImpl;
+import org.tosca.docs.model.impl.RelationshipTypeImpl;
+import org.tosca.docs.model.impl.ToscaSpecImpl;
 
-import java.io.*;
-import java.nio.charset.Charset;
-import java.util.Locale;
-
+@SuppressWarnings({"java:S3740", "rawtypes"})
 public class HtmlGeneratorTest {
+
+    private static final String GREATER_OR_EQUAL = "greater_or_equal";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     /**
-     * Sends the generated HTML to an external HTML validator tool and verifies there are no errors or warnings
+     * Sends the generated HTML to an external HTML validator tool and verifies there are no errors or
+     * warnings
      *
-     * @throws IOException if exception occurred reading the expected HTML file or sending the HTTP request to the validator
+     * @throws IOException if exception occurred reading the expected HTML file or sending the HTTP
+     *                     request to the validator
      */
     @Test
     public void validateHtml() throws IOException {
@@ -122,16 +146,16 @@ public class HtmlGeneratorTest {
                                 .setType(Type.INTEGER.toString())
                                 .setDefaultValue("http")
                                 .setConstraints(ImmutableList.<Constraint>of(
-                                        new ConstraintImpl()
-                                                .setOperator("greater_or_equal")
+                                    new ConstraintImpl()
+                                        .setOperator(GREATER_OR_EQUAL)
                                                 .setValue(1)
                                 )),
                         new PropertyImpl()
                                 .setName("cpu_frequency")
                                 .setType("scalar-unit.frequency")
                                 .setConstraints(ImmutableList.<Constraint>of(
-                                        new ConstraintImpl()
-                                                .setOperator("greater_or_equal")
+                                    new ConstraintImpl()
+                                        .setOperator(GREATER_OR_EQUAL)
                                                 .setValue(0.1)
                                 )),
                         new PropertyImpl()
@@ -139,8 +163,8 @@ public class HtmlGeneratorTest {
                                 .setType("scalar-unit.size")
                                 .setDefaultValue(false)
                                 .setConstraints(ImmutableList.<Constraint>of(
-                                        new ConstraintImpl()
-                                                .setOperator("greater_or_equal")
+                                    new ConstraintImpl()
+                                        .setOperator(GREATER_OR_EQUAL)
                                                 .setValue(0)
                                 )),
                         new PropertyImpl()
@@ -148,8 +172,8 @@ public class HtmlGeneratorTest {
                                 .setType("scalar-unit.size")
                                 .setDefaultValue(false)
                                 .setConstraints(ImmutableList.<Constraint>of(
-                                        new ConstraintImpl()
-                                                .setOperator("greater_or_equal")
+                                    new ConstraintImpl()
+                                        .setOperator(GREATER_OR_EQUAL)
                                                 .setValue(0)
                                 ))
 
@@ -266,9 +290,15 @@ public class HtmlGeneratorTest {
     }
 
     private void writeStringToFile(String content, String targetFileFullPath) throws IOException {
+        final File file = new File(targetFileFullPath);
+        final File dir = file.getParentFile();
+        if (!dir.mkdirs() && !dir.exists()) {
+            throw new RuntimeException("Cannot create directory " + dir.getAbsolutePath());
+        }
+
         try (
-                FileOutputStream fos = new FileOutputStream(targetFileFullPath);
-                BufferedOutputStream bos = new BufferedOutputStream(fos)
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedOutputStream bos = new BufferedOutputStream(fos)
         ) {
             byte[] bytes = content.getBytes();
             bos.write(bytes, 0, bytes.length);
@@ -338,11 +368,12 @@ public class HtmlGeneratorTest {
     private NodeType createToscaNodesCompute() {
 
         return new NodeTypeImpl()
-                .setTypeUri("tosca.nodes.Compute")
-                .setDescription("The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) “server”.")
-                .setDerivedFrom("tosca.nodes.Root")
-                .setCapabilities(ImmutableList.<Capability>of(
-                        new CapabilityImpl("host", "tosca.capabilities.Container")
+            .setTypeUri("tosca.nodes.Compute")
+            .setDescription(
+                "The TOSCA Compute node represents one or more real or virtual processors of software applications or services along with other essential local resources.  Collectively, the resources the compute node represents can logically be viewed as a (real or virtual) “server”.")
+            .setDerivedFrom("tosca.nodes.Root")
+            .setCapabilities(ImmutableList.of(
+                new CapabilityImpl("host", "tosca.capabilities.Container")
                 ))
                 .setAttributes(ImmutableList.of(
                         new AttributeImpl()
@@ -389,12 +420,12 @@ public class HtmlGeneratorTest {
 
     private NodeType createCustomNodesCompute() {
         return (NodeType) new NodeTypeImpl()
-                .setTypeUri("custom.nodes.Compute")
-                .setShorthandName("CustomVnf")
-                .setTypeQualifiedName("TypeQualifiedName")
-                .setDerivedFrom("tosca.nodes.Compute")
-                .setCapabilities(ImmutableList.<Capability>of(
-                        new CapabilityImpl("dependable", "tosca.capabilities.Dependable")
+            .setTypeUri("custom.nodes.Compute")
+            .setShorthandName("CustomVnf")
+            .setTypeQualifiedName("TypeQualifiedName")
+            .setDerivedFrom("tosca.nodes.Compute")
+            .setCapabilities(ImmutableList.of(
+                new CapabilityImpl("dependable", "tosca.capabilities.Dependable")
                 ))
                 .setProperties(ImmutableList.<Property>of(
                         new PropertyImpl()
